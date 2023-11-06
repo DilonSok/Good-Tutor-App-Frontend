@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import './css/Popup.css';
+import '../css/Popup.css';
 
 
 const Popup = ({ content, onClose, onSubmit }) => {

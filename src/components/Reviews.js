@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './css/Reviews.css';
+import '../css/Reviews.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Popup from './Popup';
 
