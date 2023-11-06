@@ -8,6 +8,12 @@
     width: 350px;
 }
 
+.login-title{
+    font-size: 24px;
+    font-weight: 700; 
+    text-align: center;
+}
+
 .LoginPage-container input,
 .LoginPage-container button {
     width: 100%;

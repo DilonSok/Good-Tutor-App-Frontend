@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import logo from '../images/logo.jpg';
-import message_icon from '../images/message-icon.svg';
-import Menu from './menu'; // Ensure this component can forward refs
+import Menu from './menu';
 import '../css/navbar.css';
+//Dilon Sok
+//Frontend for navbar component
+// **dropdown menu items will be implemented at a later point and currently just proof of concept
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,9 +45,6 @@ function Navbar() {
           </li>
         </ul>
         <ul className='navbar-rightside'>
-          {/* <li className='message-button'>
-            <img src={message_icon} alt="Message Icon" style={{ width: 30 }} />
-          </li> */}
           <li className='navbar-profile-logo' onClick={toggleMenu} ref={profileIconRef}>
             <div className='navbar-profile-name'>
               DS

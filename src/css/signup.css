@@ -67,3 +67,13 @@
 .submit-container:hover{
     background-color: rgba(60, 60, 136, 0.699);
 }
+
+.signup-links a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.signup-links a:hover {
+    color: #0056b3;
+}
