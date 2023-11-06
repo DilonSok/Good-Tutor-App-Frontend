@@ -1,0 +1,16 @@
+*{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+.main-content {
+    padding-top: 61.2px; /* The height of the navbar */
+}
+
+ul{
+    padding: 0;
+    list-style-type: none;
+
+}
+
+li *{
+    margin: 0;
+}

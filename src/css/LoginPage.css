@@ -1,0 +1,48 @@
+.LoginPage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.LoginPage-container{
+    width: 350px;
+}
+
+.LoginPage-container input,
+.LoginPage-container button {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 10px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.LoginPage-container button{
+    cursor: pointer;
+    background-color: rgb(60, 60, 136);
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.LoginPage-container button:hover{
+    background-color: rgba(60, 60, 136, 0.699);
+}
+
+
+.signup-links a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.signup-links a:hover {
+    color: #0056b3;
+}
+
+.sign-up-links-container{
+    display: flex;
+    justify-content: space-between;
+}
