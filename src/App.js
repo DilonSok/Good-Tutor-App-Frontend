@@ -19,6 +19,7 @@ function App() {
             <Route path="/signup-tutor" Component={SignupTutor} />
             <Route path="/signup-student" Component={SignupStudent} />
             <Route path="/reviews" Component={Reviews} />
+            <Route path="/reviews" Component={Reviews} />
           </Routes>
         </div>
     </Router>
