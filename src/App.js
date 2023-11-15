@@ -6,6 +6,7 @@ import './css/App.css'
 import SignupTutor from './components/Signup-TutorPage.js';
 import SignupStudent from './components/Signup-StudentPage.js';
 import Reviews from './components/Reviews.js';
+import HomePage from './components/HomePage.js';
 //Eric Medina
 //Routing for main application (more will be added as more components are created)
 
@@ -20,6 +21,7 @@ function App() {
             <Route path="/signup-student" Component={SignupStudent} />
             <Route path="/reviews" Component={Reviews} />
             <Route path="/reviews" Component={Reviews} />
+            <Route path="/homepage" Component={HomePage} />
           </Routes>
         </div>
     </Router>
