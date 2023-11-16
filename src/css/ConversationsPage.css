@@ -1,0 +1,57 @@
+.conversations-page{
+    height: 80vh;
+    overflow: hidden;
+}
+.conversations-page-container{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.conversations-container{
+    display:flex;
+    flex-direction:column;
+    width: 30%;
+    border-style: solid;
+    overflow-y: auto;
+}
+
+.conversations-title{
+    border-bottom: 1px black solid;
+}
+
+.conversation{
+    cursor: pointer;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
+    margin-right: 15px;
+}
+
+.view-conversation-container{
+    display:flex;
+    flex-direction: column;
+    width:70%;
+    justify-content: space-between;
+    border-style: solid;
+    border-left: none;
+    overflow: hidden;
+}
+
+.messages-container{
+    overflow-y: auto;
+    flex: 1;
+}
+
+.recipient-name{
+    border-bottom: 1px solid black;
+}
+
+.view-conversation-container input{
+    height: 40px;
+}
+
+.view-conversation-container input:focus{
+    outline: none;
+}

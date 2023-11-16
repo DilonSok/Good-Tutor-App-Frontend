@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import logo from '../images/logo.jpg';
 import Menu from './menu';
 import '../css/navbar.css';
+import { NavLink } from 'react-router-dom';
 //Dilon Sok
 //Frontend for navbar component
 // **dropdown menu items will be implemented at a later point and currently just proof of concept
@@ -55,11 +56,11 @@ function Navbar() {
       <div ref={menuRef}>
         <Menu isOpen={isOpen}>
           <ul>
-            <li>Home</li>
-            <li>Profile</li>
-            <li>Messages</li>
-            <li>Settings</li>
-            <li>Logout</li>
+            <li><NavLink to='/home'>Home</NavLink></li>
+            <li><NavLink to='/profile'>Profile</NavLink></li>
+            <li><NavLink to='/messages'>Messages</NavLink></li>
+            <li><NavLink to='/settings'>Settings</NavLink></li>
+            <li><NavLink to='/logout'>Logout</NavLink></li>
           </ul>
         </Menu>
       </div>

@@ -1,0 +1,17 @@
+.message {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    background-color: lightgray;
+}
+
+.right {
+    margin-left: 55%;
+    background-color: #DCF8C6; /* Example color for user's messages */
+
+}
+
+.left {
+    margin-right: 55%;
+    background-color: #dfdfdf; /* Example color for others' messages */
+}
