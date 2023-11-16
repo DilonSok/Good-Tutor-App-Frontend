@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import '../css/ConversationsPage.css'
+import '../css/ConversationPage.css'
 import '../css/message.css'
 
 
-function ConversationsPage() {
+function ConversationPage() {
 
 
     //conversations will be added here with this array format to and from the database
@@ -117,4 +117,4 @@ function ConversationsPage() {
     );
 }
 
-export default ConversationsPage;
+export default ConversationPage;

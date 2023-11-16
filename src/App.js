@@ -1,11 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './css/App.css'
 import Navbar from './components/navbar.js';
 import LoginPage from './components/LoginPage.js';
-import './css/App.css'
 import SignupTutor from './components/Signup-TutorPage.js';
 import SignupStudent from './components/Signup-StudentPage.js';
 import Reviews from './components/Reviews.js';
+import ConversationPage from './components/ConversationPage.js';
+import ProfilePage from './components/ProfilePage.js';
 import HomePage from './components/HomePage.js';
 //Eric Medina
 //Routing for main application (more will be added as more components are created)
@@ -21,7 +23,9 @@ function App() {
             <Route path="/signup-student" Component={SignupStudent} />
             <Route path="/reviews" Component={Reviews} />
             <Route path="/reviews" Component={Reviews} />
-            <Route path="/homepage" Component={HomePage} />
+            <Route path="/home" Component={HomePage} />
+            <Route path="/messages" Component={ConversationPage} />
+            <Route path="/profile" Component={ProfilePage} />
           </Routes>
         </div>
     </Router>
