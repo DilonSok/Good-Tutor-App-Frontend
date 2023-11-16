@@ -67,9 +67,9 @@
   font-size: 12px;
 }
 
-NavLink{
-  list-style: none;
+.navlinks a{
   text-decoration: none;
+  color: black;
 }
 
 .menu-content-container{
