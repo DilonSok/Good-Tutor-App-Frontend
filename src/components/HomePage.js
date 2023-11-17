@@ -13,14 +13,12 @@ function HomePage(){
         <img
           src={logo}
           alt="Image Description"
-          style={{ width: '25%', height: '180px' }}
+          style={{ width: '25%', height: '200px'}}
         />
-      </div>
-      <div style={{ bottom: 0, width: '100%' }}>
         <img
           src={photo}
           alt="Image Description"
-          style={{ width: '100%', height: '290px' }}
+          style={{width: '100%', marginBottom: '0%', marginTop: '5px' }}
         />
       </div>
     </div>
