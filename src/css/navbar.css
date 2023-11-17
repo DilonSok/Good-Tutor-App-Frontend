@@ -72,6 +72,28 @@
   color: black;
 }
 
+.navbar-tutor-signup a{
+  text-decoration: none;
+  color: blue; 
+  padding-right: 10px;
+}
+
+.navbar-student-signup a{
+  text-decoration: none;
+  color: blue; 
+  padding-left: 10px;
+}
+
+.login-button a{
+  text-decoration: none;
+  color: blue; 
+  padding-right: 10px;
+}
+
+.login-button a:hover{
+  text-decoration: underline;
+}
+
 .menu-content-container{
   position: absolute;
   top: 50px;  
