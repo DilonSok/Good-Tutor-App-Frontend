@@ -9,6 +9,7 @@ import Reviews from './components/Reviews.js';
 import ConversationPage from './components/ConversationPage.js';
 import ProfilePage from './components/ProfilePage.js';
 import HomePage from './components/HomePage.js';
+import SearchPage from './components/SearchPage.js';
 //Eric Medina
 //Routing for main application (more will be added as more components are created)
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/home" Component={HomePage} />
             <Route path="/messages" Component={ConversationPage} />
             <Route path="/profile" Component={ProfilePage} />
+            <Route path="/search" Component={SearchPage} />
           </Routes>
         </div>
     </Router>

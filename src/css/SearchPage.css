@@ -1,0 +1,69 @@
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 18px;
+    border: 1px solid black;
+  }
+  
+.filter-container {
+    display: flex;
+    align-items: center;
+    border-radius: 0%;
+    border: 3px solid black;
+    
+  }
+
+.rating-filter,.availibilty-filter {
+  margin-right: 150px; /* Adjust the spacing between filters */
+}
+
+.filter-header {
+    margin-right: 70px;
+}
+
+.rating-filter {
+    display: flex;
+    align-items: center;
+    
+    
+}
+
+.availibilty-filter {
+    display: flex;
+    align-items: center;
+    
+}
+
+.dropdown-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Creates three equal columns */
+    gap: 10px; /* Adjust the gap between columns */
+    align-items: center;
+    border: 2px solid blue;
+}
+
+.dropdown-header{
+    margin-right: 5px;
+    
+}
+
+.dropdown {
+    margin-left: 10px;
+    
+}
+
+.profile-icon {
+    margin-top: 10%;
+    margin-bottom: 15px;
+    color: black;
+}
+  
+.message-button-container {
+    margin-top: 15px;
+    margin-left: 90%;
+}
+  
+  
