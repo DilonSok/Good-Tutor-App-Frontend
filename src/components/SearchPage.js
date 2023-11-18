@@ -29,41 +29,55 @@ const DropdownMenu = ({ options }) => {
         <i className="fas fa-bars" style={{ color: showOptions ? 'blue' : 'black' }}></i>
         </div>
         {showOptions && (
-          <ul className="dropdown-options">
-            {options.map((option, index) => (
-              <li
-                key={index}
-                onClick={() => handleToggle(option.value)}
-                className={selectedOptions.includes(option.value) ? 'selected' : ''}
-              >
-                {option.label}
-              </li>
-            ))}
-          </ul>
-        )}
-        {selectedOptions.length > 0 && (
-          <p>Selected option(s): {selectedOptions.join(', ')}</p>
-        )}
-      </div>
+        <div className="dropdown-options">
+          {options.map((option, index) => (
+            <div
+              key={index}
+              onClick={() => handleToggle(option.value)}
+              className={selectedOptions.includes(option.value) ? 'selected' : ''}
+            >
+              {option.label}
+            </div>
+          ))}
+        </div>
+      )}
+      {selectedOptions.length > 0 && (
+        <p>Selected option(s): {selectedOptions.join(', ')}</p>
+      )}
+    </div>
     );
   };
 
 function SearchPage() {
   const ratingOptions = [
-    { value: 'option1', label: '1 Star' },
-    { value: 'option2', label: '2 Star' },
-    { value: 'option3', label: '3 Star' },
-    { value: 'option4', label: '4 Star' },
-    { value: 'option5', label: '5 Star' },
+    { value: '1 Stars', label: '1 Stars' },
+    { value: '2 Stars', label: '2 Stars' },
+    { value: '3 Stars', label: '3 Stars' },
+    { value: '4 Stars', label: '4 Stars' },
+    { value: '5 Stars', label: '5 Stars' },
   ];
 
   const availabilityOptions = [
-    { value: 'option6', label: 'Monday'},{value: 'option7', label: 'Tuesday' },
-    { value: 'option8', label: 'Wednesday' },{ value: 'option9', label: 'Thursday' },
-    { value: 'option10', label: 'Friday' },{ value: 'option11', label: 'Saturday' },
-    { value: 'option12', label: 'Sunday' },
+    { value: 'Monday', label: 'Monday'},{value: 'Tuesday', label: 'Tuesday' },
+    { value: 'Wednesday', label: 'Wednesday' },{ value: 'Thursday', label: 'Thursday' },
+    { value: 'Friday', label: 'Friday' },{ value: 'Saturday', label: 'Saturday' },
+    { value: 'Sunday', label: 'Sunday' },
     
   ];
+
+  const [inputValue, setInputValue] = useState('');
+  const [stringArray, setStringArray] = useState([]);
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter' && inputValue.trim() !== '') {
+      setStringArray([...stringArray, inputValue.trim()]);
+      setInputValue('');
+    }
+  };
 
   return (
     <div className="search-container">
@@ -82,6 +96,18 @@ function SearchPage() {
             </div>
             <div className='courses-filter'>
                 <h2>Courses</h2>
+                <input
+        type="text"
+        value={inputValue}
+        onChange={handleInputChange}
+        onKeyPress={handleKeyPress}
+        placeholder="Press Enter to add"
+      />
+      <ul>
+        {stringArray.map((str, index) => (
+          <li key={index}>{str}</li>
+        ))}
+      </ul>
             </div>
         </div>
 

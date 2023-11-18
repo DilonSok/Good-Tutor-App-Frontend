@@ -22,6 +22,7 @@
 
 .filter-header {
     margin-right: 70px;
+    color: darkblue
 }
 
 .rating-filter {
@@ -37,20 +38,41 @@
     
 }
 
+.courses-filter {
+    align-items: center;
+    display:flex;
+}
+
+
+
 .dropdown-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Creates three equal columns */
     gap: 10px; /* Adjust the gap between columns */
     align-items: center;
-    border: 2px solid blue;
+    border: 2px solid darkblue;
+}
+
+
+.dropdown-options.show {
+  display: block;
 }
 
 .dropdown-header{
+    cursor: pointer;
     margin-right: 5px;
     
 }
 
 .dropdown {
+    position: relative;
     margin-left: 10px;
     
 }
