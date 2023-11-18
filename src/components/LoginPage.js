@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../css/LoginPage.css';
 import { authenticateUser } from '../scripts/authenticateUser';
 //Dilon Sok
@@ -10,6 +10,7 @@ function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate =  useNavigate();
 
     //test logic for logging in
     const handleSubmit = (e) => {
@@ -19,13 +20,14 @@ function LoginPage() {
         const studentData = JSON.parse(localStorage.getItem('studentUser'));
         const tutorData = JSON.parse(localStorage.getItem('tutorUser'));
 
-        if(authenticateUser(studentData, email, password) || authenticateUser(tutorData, email, password)){
-            console.log("login successful!");
-        }
-        else{
+        if (authenticateUser(studentData, email, password) || authenticateUser(tutorData, email, password)) {
+            localStorage.setItem('isLoggedIn', 'true');
+            window.dispatchEvent(new Event('loginStateChange'));
+            navigate('/home');
+        } else {
             setError('Invalid email or password');
         }
-    }
+    };
 
     return (
         <div className='LoginPage'>

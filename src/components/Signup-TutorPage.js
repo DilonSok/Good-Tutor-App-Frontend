@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import '../css/signup.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { validatePassword } from '../scripts/validatePassword';
 //Rushi Kona 
 //Frontend for Signup (tutor page)
@@ -11,10 +11,12 @@ function SignupTutor() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [tutorFirstName, setTutorFirstName] = useState('');
-    const [tutorLastName, setTutorLastName] = useState('');
-    const [university, setUniversity] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [classes, setClasses] = useState('');
+    const [description, setDescription] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const navigate = useNavigate();
 
     const handlePasswordBlur = () => {
         if(!validatePassword(password)){
@@ -39,10 +41,12 @@ function SignupTutor() {
         }
 
         //if it reaches this stage, it will send this data to the database
-        //currently uses localstorage to test
-        const userData = {email, password, tutorFirstName, tutorLastName, university};
+        //currently uses localstorage to test\
+        let reviewCount = 0;
+        const userData = {email, password, firstName, lastName, classes, description, reviewCount};
         localStorage.setItem('tutorUser', JSON.stringify(userData));
         console.log(userData);
+        navigate('/');
     };
 
     return (
@@ -70,16 +74,19 @@ function SignupTutor() {
                         <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                     </div>
                     <div className="input">
-                        <input type="Tutor First Name" placeholder="Enter First Name" value={tutorFirstName} onChange={(e) => setTutorFirstName(e.target.value)}/>
+                        <input type="Tutor First Name" placeholder="Enter First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
                     </div>
                     <div className="input">
-                        <input type="Tutor Last Name" placeholder="Enter Last Name" value={tutorLastName} onChange={(e) => setTutorLastName(e.target.value)}/>
+                        <input type="Tutor Last Name" placeholder="Enter Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)}/>
                     </div>
                     <div className="input">
-                        <input type="University" placeholder="Enter Current University" value={university} onChange={(e) => setUniversity(e.target.value)}/>
+                        <input type="University" placeholder="Enter Classes" value={classes} onChange={(e) => setClasses(e.target.value)}/>
+                    </div>
+                    <div className="input">
+                        <input type="University" placeholder="Enter Description" value={description} onChange={(e) => setDescription(e.target.value)}/>
                     </div>
                     {/*submit button will eventually connect with backend script and use previous inputs to create an account */}
-                    <button className="submit-container" >Sign Up</button> 
+                    <button className="submit-container" type='submit' >Sign Up</button> 
                 </form>
                 {/*routing to different sign up or back to logging in*/}
                 <div>Already have an account or want to sign up as a student?</div>
