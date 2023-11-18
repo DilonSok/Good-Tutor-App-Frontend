@@ -38,7 +38,7 @@ function SignupStudent() {
         //if it reaches this stage, it will send this data to the database
         //currently uses localstorage to test
         const userData = {email, password, firstName, lastName};
-        localStorage.setItem('studentUser', JSON.stringify(userData));
+        localStorage.setItem('user', JSON.stringify(userData));
         console.log(userData);
         navigate('/');
     };

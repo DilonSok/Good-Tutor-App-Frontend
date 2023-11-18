@@ -41,10 +41,11 @@ function SignupTutor() {
         }
 
         //if it reaches this stage, it will send this data to the database
-        //currently uses localstorage to test\
+        //currently uses localstorage to test
         let reviewCount = 0;
-        const userData = {email, password, firstName, lastName, classes, description, reviewCount};
-        localStorage.setItem('tutorUser', JSON.stringify(userData));
+        let reviews = [[]]
+        const userData = {email, password, firstName, lastName, classes, description, reviewCount, reviews};
+        localStorage.setItem('user', JSON.stringify(userData));
         console.log(userData);
         navigate('/');
     };
