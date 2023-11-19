@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import '../css/SearchPage.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import Tutors from './Tutors';
+import TutorForm from './TutorForm';
 
 const DropdownMenu = ({ options }) => {
     const [showOptions, setShowOptions] = useState(false);
@@ -110,7 +112,7 @@ function SearchPage() {
       </ul>
             </div>
         </div>
-
+        
         <div className="profile-icon">
         <i className="fa-solid fa-circle-user fa-8x"></i>
         </div>
@@ -122,7 +124,14 @@ function SearchPage() {
             Message
           </h3>
       </div>
+      <div>
+        <Tutors/>
+      </div>
+      <div>
+        <TutorForm/>
+      </div>
     </div>
+    
   );
 }
 
