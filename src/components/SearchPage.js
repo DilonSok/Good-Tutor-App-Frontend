@@ -3,6 +3,7 @@ import Axios from 'axios';
 import '../css/SearchPage.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Tutors from './Tutors.js';
+import TutorForm from './TutorForm';
 
 const DropdownMenu = ({ options, handleSelect }) => {
   const [showOptions, setShowOptions] = useState(false);
@@ -137,6 +138,9 @@ function SearchPage() {
     </div>
     <div>
         <Tutors />
+    </div>
+    <div>
+      <TutorForm/>
     </div>
     </div>
         
