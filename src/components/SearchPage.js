@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import Axios from 'axios';
+import Tutors from './Tutors';
+import TutorForm from './TutorForm';
 import '../css/SearchPage.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import Tutors from './Tutors.js';
-import TutorForm from './TutorForm';
 
 const DropdownMenu = ({ options, handleSelect }) => {
   const [showOptions, setShowOptions] = useState(false);
@@ -52,7 +51,7 @@ const DropdownMenu = ({ options, handleSelect }) => {
 
 function SearchPage() {
   const ratingOptions = [
-    { value: '1', label: '1 Stars' },
+    { value: '1', label: '1 Star' },
     { value: '2', label: '2 Stars' },
     { value: '3', label: '3 Stars' },
     { value: '4', label: '4 Stars' },
@@ -69,12 +68,12 @@ function SearchPage() {
     { value: 'Sunday', label: 'Sunday' },
   ];
 
-  const [selectedRating, setSelectedRating] = useState(null);
+  const [selectedRating, setSelectedRating] = useState([]);
   const [selectedAvailability, setSelectedAvailability] = useState([]);
   const [inputValue, setInputValue] = useState('');
 
-  const handleRatingSelect = (value) => {
-    setSelectedRating(value);
+  const handleRatingSelect = (selectedOptions) => {
+    setSelectedRating(selectedOptions);
   };
 
   const handleAvailabilitySelect = (selectedOptions) => {
@@ -85,65 +84,45 @@ function SearchPage() {
     setInputValue(event.target.value);
   };
 
-  // This part sends the selected options to the Tutors component
-  const handleFilterChange = () => {
-    // Send the selected options (rating, availability, inputValue) to your Tutors component
-    // You might use Axios here to send a request to your API with the selected options
-    // For example:
-    Axios.get('http://localhost:3500/users', {
-      params: {
-        rating: selectedRating,
-        availability: selectedAvailability,
-        course: inputValue,
-      },
-    })
-      .then((response) => {
-        // Handle the response or update state as needed
-      })
-      .catch((error) => {
-        console.error('Error fetching filtered data:', error);
-      });
+  const [filters, setFilters] = useState({});
+
+  const handleFilterChange = (event) => {
+    event.preventDefault(); // Prevent default form submission behavior
+    setFilters({
+      rating: selectedRating,
+      availability: selectedAvailability,
+      course: inputValue
+    });
   };
 
   return (
     <div className="search-container">
       <div className="filter-container">
-        <div className="filter-header">
-          <h2>Filter Options:</h2>
-        </div>
-        <form className="filters" onClick={handleFilterChange}> {/*All filters here will be saved to be used by Submit button for creating account */}
+        <h2>Filter Options:</h2>
+        <form className="filters" onSubmit={handleFilterChange}>
             <div className="rating-filter">
-                <h2>Rating</h2>
+                <h3>Rating</h3>
                 <DropdownMenu options={ratingOptions} handleSelect={handleRatingSelect} />
             </div>
             <div className="availability-filter">
-                <h2>Availability</h2>
+                <h3>Availability</h3>
                 <DropdownMenu options={availabilityOptions} handleSelect={handleAvailabilitySelect} />
             </div>
             <div className="courses-filter">
-                <div className="courses-header">
-                    <h2>Courses</h2>
-                </div>
-                <div className="class-input">
-                    <input
-                     type="text"
-                    value={inputValue}
-                    onChange={handleInputChange}
-                    placeholder="Enter Course..."
-                    />
-                <button className="filter-button" type='submit' >Filter</button>
-                </div>
+                <h3>Courses</h3>
+                <input
+                  type="text"
+                  value={inputValue}
+                  onChange={handleInputChange}
+                  placeholder="Enter Course..."
+                />
             </div>
+            <button className="filter-button" type='submit'>Filter</button>
         </form>
+      </div>
+      <Tutors filters={filters} />
+      <TutorForm />
     </div>
-    <div>
-        <Tutors />
-    </div>
-    <div>
-      <TutorForm/>
-    </div>
-    </div>
-        
   );
 }
 
