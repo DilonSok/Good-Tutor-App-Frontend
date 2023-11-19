@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import TutorCard from './TutorCard'
 import Axios from "axios"
-import "../css/Tutors.css"
+
 class Tutors extends Component {
   constructor(props) {
     super(props)
@@ -13,7 +13,9 @@ class Tutors extends Component {
   componentDidMount() {
     Axios.get("http://localhost:3500/users")
       .then((response) => {
+        console.log(response); // Logging the response as in TestTutors.js
         this.setState({ listofTutors: response.data })
+        // You might want to add the refreshPage functionality here, if needed.
       })
       .catch((error) => {
         console.error("Error fetching data:", error)
@@ -28,12 +30,13 @@ class Tutors extends Component {
           <div key={tutor.id}>
             <TutorCard
               id = {tutor._id}
-              firstName = "Rushi" //change with data
-              lastName = "Kona" //change with data
-              classes = {["CS 1111", "CS 1112", "CS 1113",]} //change with data
               username={tutor.username}
               rating={tutor.rating}
               description={tutor.description}
+              // Assuming the tutor object has firstName, lastName, and classes properties
+              firstName = {tutor.firstName} 
+              lastName = {tutor.lastName}
+              classes = {tutor.classes} 
             />
           </div>
         ))}
