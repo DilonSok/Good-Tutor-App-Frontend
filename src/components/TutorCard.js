@@ -33,7 +33,7 @@ class TutorCard extends Component {
             <div className="firstinfo">
               <img src={this.url} alt="temp" />
               <div className="profileinfo">
-                <h1>{this.props.firstName} {this.props.lastName}</h1>
+                <h1>{this.props.username}</h1>
                 <h3>Classes: {this.props.classes.join(', ')}</h3>
                 <h3>Rating: {this.props.rating}/5 Rating</h3>
                 <p>{this.props.description}</p>
