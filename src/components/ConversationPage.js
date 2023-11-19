@@ -5,7 +5,8 @@ import '../css/message.css';
 
 function ConversationPage() {
     // Assuming you have a way to fetch the current user's ID
-    const userID = 'yourUserId'; // Replace with the actual user's ID
+    const userID = localStorage.getItem('userID');
+    console.log(userID);
     const [conversations, setConversations] = useState([]);
     const [currentConversation, setCurrentConversation] = useState(null);
     const [messages, setMessages] = useState([]);
@@ -13,7 +14,7 @@ function ConversationPage() {
 
     useEffect(() => {
         // Fetch conversations when the component mounts
-        Axios.get(`/messages/${userID}/conversations`)
+        Axios.get(`http://localhost:3500/messages/${userID}/conversations`)
             .then(response => {
                 setConversations(response.data.data);
             })

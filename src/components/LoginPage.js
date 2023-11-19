@@ -16,9 +16,10 @@ function LoginPage() {
             // Send a POST request to your login endpoint
             // In your login response handling
             const response = await Axios.post('http://localhost:3500/users/login', { username, password });
+            console.log(response)
             localStorage.setItem('authToken', response.data.token);
             localStorage.setItem('userID', response.data.userId); // Storing user ID
-
+            console.log(response.data.userId)
             
             // Store the JWT token in localStorage or Context API/Redux
             localStorage.setItem('authToken', response.data.token);
