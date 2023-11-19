@@ -59,13 +59,13 @@ function SearchPage() {
   ];
 
   const availabilityOptions = [
-    { value: 'Monday', label: 'Monday' },
-    { value: 'Tuesday', label: 'Tuesday' },
-    { value: 'Wednesday', label: 'Wednesday' },
-    { value: 'Thursday', label: 'Thursday' },
-    { value: 'Friday', label: 'Friday' },
-    { value: 'Saturday', label: 'Saturday' },
-    { value: 'Sunday', label: 'Sunday' },
+    { value: 'MONDAY', label: 'MONDAY' },
+    { value: 'TUESDAY', label: 'TUESDAY' },
+    { value: 'WEDNESDAY', label: 'WEDNESDAY' },
+    { value: 'THURSDAY', label: 'THURSDAY' },
+    { value: 'FRIDAY', label: 'FRIDAY' },
+    { value: 'SATURDAY', label: 'SATURDAY' },
+    { value: 'SUNDAY', label: 'SUNDAY' },
   ];
 
   const [selectedRating, setSelectedRating] = useState([]);
