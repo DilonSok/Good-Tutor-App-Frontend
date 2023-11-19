@@ -13,8 +13,16 @@
     align-items: center;
     border-radius: 0%;
     border: 3px solid black;
+    width: 80%;
+    
     
   }
+
+.filters {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
 
 .rating-filter,.availibilty-filter {
   margin-right: 150px; /* Adjust the spacing between filters */
@@ -28,19 +36,22 @@
 .rating-filter {
     display: flex;
     align-items: center;
+    margin: auto;
     
     
 }
 
-.availibilty-filter {
+.availability-filter {
     display: flex;
     align-items: center;
+    margin: auto;
     
 }
 
 .courses-filter {
     align-items: center;
     display:flex;
+    margin: auto;
 }
 
 
