@@ -64,6 +64,7 @@ function Navbar() {
     e.stopPropagation();
     setIsOpen(prevIsOpen => !prevIsOpen);
   };
+  
   return (
     <div className="navbar">
       <div className="navbar-container">

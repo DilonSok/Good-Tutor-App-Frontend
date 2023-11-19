@@ -6,6 +6,7 @@ import { validatePassword } from '../scripts/validatePassword';
 //Frontend for Signup(student page)
 
 function SignupStudent() {
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -13,6 +14,7 @@ function SignupStudent() {
     const [lastName, setLastName] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const navigate = useNavigate();
+
     const handlePasswordBlur = () => {
         if(!validatePassword(password)){
             setPasswordError('Password must be at least 8 characters long and contain at least one symbol.');
