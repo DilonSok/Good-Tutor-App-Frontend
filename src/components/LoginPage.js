@@ -1,31 +1,39 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Axios from 'axios'; // Import Axios for HTTP requests
 import '../css/LoginPage.css';
-import { authenticateUser } from '../scripts/authenticateUser';
-//Dilon Sok
-//Frontend for Log in page
 
 function LoginPage() {
-
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const navigate =  useNavigate();
+    const navigate = useNavigate();
 
-    //test logic for logging in
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        //these calls will be 
-        const studentData = JSON.parse(localStorage.getItem('studentUser'));
-        const tutorData = JSON.parse(localStorage.getItem('tutorUser'));
+        try {
+            // Send a POST request to your login endpoint
+            // In your login response handling
+            const response = await Axios.post('http://localhost:3500/users/login', { username, password });
+            localStorage.setItem('authToken', response.data.token);
+            localStorage.setItem('userID', response.data.userId); // Storing user ID
 
-        if (authenticateUser(studentData, email, password) || authenticateUser(tutorData, email, password)) {
+            
+            // Store the JWT token in localStorage or Context API/Redux
+            localStorage.setItem('authToken', response.data.token);
+
+            // Update login state and redirect to home
             localStorage.setItem('isLoggedIn', 'true');
             window.dispatchEvent(new Event('loginStateChange'));
             navigate('/home');
-        } else {
-            setError('Invalid email or password');
+        } catch (err) {
+            // Handle errors like invalid credentials
+            if (err.response && err.response.status === 401) {
+                setError('Invalid username or password');
+            } else {
+                setError('An error occurred. Please try again later.');
+            }
         }
     };
 
@@ -36,26 +44,36 @@ function LoginPage() {
                     <li><p className='login-title'>Log in</p></li>
                     <form onSubmit={handleSubmit}>
                         <li>
-                            <div className='email-input-container'>
-                                <p>Email</p>
-                                <input type='email' placeholder='Your email' value={email} onChange={(e) => setEmail(e.target.value)}/> {/*email input will be grabbed to be used by Log In button for logging in*/}
+                            <div className='username-input-container'>
+                                <p>Username</p>
+                                <input 
+                                    type='text' 
+                                    placeholder='Your username' 
+                                    value={username} 
+                                    onChange={(e) => setUsername(e.target.value)}
+                                />
                             </div>
                         </li>
                         <li>
                             <div className='password-input-container'>
                                 <p>Password</p>
-                                <input type='password' placeholder='Your password' value={password} onChange={(e) => setPassword(e.target.value)}/> {/*password input will be grabbed to be used by Log In button for logging in*/}
+                                <input 
+                                    type='password' 
+                                    placeholder='Your password' 
+                                    value={password} 
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
                             </div>
                         </li>
                         <li>
-                            <button>Log in</button>  {/*button input here will eventually connect with backend script to initiate obtaining login/input and authenticate*/}
+                            <button>Log in</button>
                         </li>
                         {error && <li className="error-message">{error}</li>}
                     </form>
                     <li>
                         <p>Don't have an account yet?</p>
                     </li>
-                    <li className='signup-links'> {/*routing to different sign ups*/}
+                    <li className='signup-links'>
                         <p>
                             <Link to="/signup-tutor">Sign up as a tutor</Link>
                             {' or '}
@@ -64,7 +82,6 @@ function LoginPage() {
                     </li>
                 </ul>
             </div>
-
         </div>
     );
 }
