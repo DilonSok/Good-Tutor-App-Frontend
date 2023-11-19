@@ -34,8 +34,7 @@ class Tutors extends Component {
         const { rating, availability, course } = this.props.filters;
         let filtered = this.state.listofTutors.filter(tutor => {
             const matchesRating = !rating.length || rating.includes(String(tutor.rating));
-            const matchesAvailability =
-            !availability.length || availability.some(day => tutor.availability && tutor.availability.includes(day));
+            const matchesAvailability = !availability.length || availability.some(day => tutor.availability && tutor.availability.includes(day));
             const matchesCourse = !course || tutor.classes && tutor.classes.includes(course);
 
             return matchesRating && matchesAvailability && matchesCourse;
