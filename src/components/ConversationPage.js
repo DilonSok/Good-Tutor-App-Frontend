@@ -28,16 +28,24 @@ function ConversationPage() {
                 conversationId: currentConversation._id,
                 content: currentMessage
             })
+            .then(() => {
+                // Re-fetch the conversation to get updated messages
+                return Axios.get(`http://localhost:3500/messages/${userID}/conversations`);
+            })
             .then(response => {
-                const updatedMessages = [...messages, response.data.data];
-                setMessages(updatedMessages);
+                // Update conversations and reset the current conversation
+                setConversations(response.data.data);
+                const updatedCurrentConversation = response.data.data.find(conv => conv._id === currentConversation._id);
+                setCurrentConversation(updatedCurrentConversation);
+                setMessages(updatedCurrentConversation ? updatedCurrentConversation.messages : []);
                 setCurrentMessage("");
             })
             .catch(error => {
-                console.error('Error sending message:', error);
+                console.error('Error:', error);
             });
         }
     };
+    
 
     const loadMessages = (conversationID) => {
         const conversation = conversations.find(conv => conv._id === conversationID);
@@ -47,8 +55,6 @@ function ConversationPage() {
         }
     };
     
-    
-
     const handleInputChange = (e) => {
         setCurrentMessage(e.target.value);
     };
