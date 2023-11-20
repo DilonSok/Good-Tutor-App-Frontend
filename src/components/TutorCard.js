@@ -43,7 +43,7 @@ class TutorCard extends Component {
                 <h3>Rating: {this.props.rating}/5 Stars</h3>
                 <p>{this.props.description}</p>
                 <h3><button onClick={this.viewProfile}>View Profile</button></h3> {/* Changed to button */}
-                <button onClick={this.handleMessage}>Message</button>
+                <button className='button' onClick={this.handleMessage}>Message</button>
               </div>
             </div>
           </div>
