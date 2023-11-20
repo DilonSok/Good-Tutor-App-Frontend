@@ -1,9 +1,29 @@
 
+.tutor-info-title {
+  display: flex;
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.profile-info {
+  margin-left: 15px;
+}
+
+.line2 {
+  margin-top: 5px; 
+  left: 0; 
+  width: 100%;
+  border: none; 
+  border-top: 2px solid #000; 
+}
+
 .reviews-container {
   width: 80%; 
   margin: 0 auto; 
-  height: 100vh;
-  border: 2px solid #333; 
+  min-height: 100vh;
+  overflow-y: auto;
+  border: 2px solid rgb(0, 0, 0); 
 }
 
 .header-content {
@@ -19,10 +39,11 @@
 
 .reviews-title {
   display: flex;
-
   margin-left: 10px;
   font-size: 20px;
+  font-weight: bold;
 }
+
 
 .popUpButton {
   margin-left: auto;
