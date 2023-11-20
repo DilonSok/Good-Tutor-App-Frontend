@@ -70,6 +70,18 @@ function Reviews() {
     }
   };
 
+  function calculateOverallRating(reviews) {
+    if (reviews.length === 0) {
+      return 0; // Default to 0 if there are no reviews to avoid division by zero
+    }
+  
+    const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+    const overallRating = totalRating / reviews.length;
+    return overallRating;
+  };
+
+  const overallRating = calculateOverallRating(reviews);
+
 
   return (
       <div className="reviews-container">
@@ -78,6 +90,16 @@ function Reviews() {
           <h1 className="header-title"> Tutor Name </h1>
         </div>
         <div className="line1"></div>
+          <div className ="tutor-info-title">
+            <p> About </p>
+          </div>
+          <div className='line2'></div>
+          <div className="profile-info">
+            <p> Classes:  </p> 
+            <p> Availability: </p>
+            <p> Rating: {overallRating.toFixed(1)}</p>
+          </div>
+          <div className='line2'></div>
           <div className= "reviews-title">
             <p> Reviews </p>
             <button className='popUpButton' onClick={togglePopup}>Add Review</button>
