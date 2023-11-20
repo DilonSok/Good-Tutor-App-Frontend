@@ -169,3 +169,31 @@ body {
         left: -78px;
     }
 }
+
+/* Button Style */
+/* Button Style */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid darkblue;
+    border-radius: 5px;
+    color: white;
+    background-color: darkblue;
+    transition: background-color 0.3s, color 0.3s;
+    margin-top: 20px; /* Increase the margin-top value */
+    margin-bottom: 10px;
+}
+
+  
+  /* Hover Effect */
+  .button:hover {
+    background-color: #001f3f; /* Darken the background on hover */
+    color: #ffffff; /* Change text color on hover */
+  }
+  
+  

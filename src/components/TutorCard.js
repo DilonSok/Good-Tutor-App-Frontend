@@ -39,7 +39,8 @@ class TutorCard extends Component {
                 <h3>Rating: {this.props.rating}/5 Stars</h3>
                 <p>{this.props.description}</p>
                 <h3><a href="">View Profile</a></h3>
-                <button onClick={this.handleDelete}>Message</button>
+                <button class="button" onClick={this.handleDelete}>Message</button>
+                <br></br>
               </div>
             </div>
           </div>
