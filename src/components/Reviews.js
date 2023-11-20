@@ -95,9 +95,9 @@ function Reviews() {
           </div>
           <div className='line2'></div>
           <div className="profile-info">
+            <p> Rating: {overallRating.toFixed(1)}</p>
             <p> Classes:  </p> 
             <p> Availability: </p>
-            <p> Rating: {overallRating.toFixed(1)}</p>
           </div>
           <div className='line2'></div>
           <div className= "reviews-title">
