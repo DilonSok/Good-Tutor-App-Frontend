@@ -4,18 +4,16 @@ import '../css/ConversationPage.css';
 import '../css/message.css';
 
 function ConversationPage() {
-    // Assuming you have a way to fetch the current user's ID
     const userID = localStorage.getItem('userID');
-    console.log(userID);
     const [conversations, setConversations] = useState([]);
     const [currentConversation, setCurrentConversation] = useState(null);
     const [messages, setMessages] = useState([]);
     const [currentMessage, setCurrentMessage] = useState("");
 
     useEffect(() => {
-        // Fetch conversations when the component mounts
         Axios.get(`http://localhost:3500/messages/${userID}/conversations`)
             .then(response => {
+                console.log(response);
                 setConversations(response.data.data);
             })
             .catch(error => {
@@ -25,15 +23,13 @@ function ConversationPage() {
 
     const sendMessage = () => {
         if (currentMessage.trim() !== "" && currentConversation) {
-            // Assuming your backend API expects senderId, recipientId, and content
-            Axios.post('/messages/send', {
+            Axios.post('http://localhost:3500/messages/send', {
                 senderId: userID,
-                recipientId: currentConversation.id, // Replace with the correct recipient ID
+                conversationId: currentConversation._id,
                 content: currentMessage
             })
             .then(response => {
-                // Update the conversation with the new message
-                const updatedMessages = [...messages, { message: currentMessage, userID: userID }];
+                const updatedMessages = [...messages, response.data.data];
                 setMessages(updatedMessages);
                 setCurrentMessage("");
             })
@@ -44,13 +40,14 @@ function ConversationPage() {
     };
 
     const loadMessages = (conversationID) => {
-        // Find the conversation and set it as the current conversation
-        const conversation = conversations.find(conv => conv.id === conversationID);
+        const conversation = conversations.find(conv => conv._id === conversationID);
         if (conversation) {
-            setMessages(conversation.messages);
             setCurrentConversation(conversation);
+            setMessages(conversation.messages);
         }
     };
+    
+    
 
     const handleInputChange = (e) => {
         setCurrentMessage(e.target.value);
@@ -61,7 +58,6 @@ function ConversationPage() {
             sendMessage();
         }
     };
-
     return (
         <div className="conversations-page">
             <div className="conversations-page-container">
@@ -72,11 +68,12 @@ function ConversationPage() {
                     <div className="conversations-list-container">
                         {conversations.map((conversation, index) => (
                             <div
-                                key={index}
-                                className="conversation"
-                                onClick={() => loadMessages(conversation.id)}
-                            >
-                                <div>{conversation.tutorName}</div>
+        key={index}
+        className="conversation"
+        onClick={() => loadMessages(conversation._id)} // Ensure correct ID is passed
+    >
+                                <div>test</div>
+                                {/* <div>{conversation.tutorName}</div> this will need to have some way to get recepients name through recepientID*/}
                                 <div>...</div>
                             </div>
                         ))}
@@ -88,8 +85,8 @@ function ConversationPage() {
                     </div>
                     <div className="messages-container">
                         {messages.map((msg, index) => (
-                            <div key={index} className={`message ${msg.userID === userID ? "right" : "left"}`}>
-                                {msg.message}
+                            <div key={index} className={`message ${msg.sender._id === userID ? "right" : "left"}`}>
+                                {msg.content}
                             </div>
                         ))}
                     </div>

@@ -1,28 +1,30 @@
 import React, { Component } from 'react';
-import { Axios } from 'axios';
+import Axios from 'axios';
+//import '../css/TutorCard.css';
+import { useNavigate } from 'react-router-dom';
 
 class TutorCard extends Component {
   constructor(props) {
     super(props);
     
-    // Define the url variable within the class constructor
     this.url = `https://robohash.org/${this.props.username}.png?set=set4`;
+    this.handleMessage = this.handleMessage.bind(this);
   }
 
-  handleDelete = async () => {
-    const { id } = this.props;
+  handleMessage() {
+    const loggedInUserId = localStorage.getItem('userID'); // Retrieve logged-in user's ID
+    const tutorId = this.props.id; // Replace with actual prop for tutor's ID
 
-    try {
-      // Make a DELETE request to your API endpoint with the user id
-      await Axios.delete(`http://localhost:3500/users/${id}`);
-
-      // Assuming you have a function to update the list of tutors in the parent component
-      // This function should refetch the tutor data or update the state to reflect the deletion
-      this.props.onDelete(id);
-    } catch (error) {
-      console.error('Error deleting tutor:', error);
-    }
-  };
+    // Assuming a POST endpoint to start a new conversation
+    Axios.post('http://localhost:3500/messages/start', { senderId: loggedInUserId, recipientId: tutorId })
+      .then(response => {
+        // Navigate to the messaging page
+        this.props.navigate('/messages');
+      })
+      .catch(error => {
+        console.error('Error starting conversation:', error);
+      });
+  }
   
   render() { 
     return (
@@ -37,8 +39,8 @@ class TutorCard extends Component {
                 <h3>Classes: {this.props.classes.join(', ')}</h3>
                 <h3>Rating: {this.props.rating}/5 Rating</h3>
                 <p>{this.props.description}</p>
-                <h3><a href="">View Profile</a></h3>
-                <button onClick={this.handleDelete}>Message</button>
+                <h3><button onClick={this.viewProfile}>View Profile</button></h3> {/* Changed to button */}
+                <button onClick={this.handleMessage}>Message</button>
               </div>
             </div>
           </div>
@@ -48,4 +50,7 @@ class TutorCard extends Component {
   }
 }
 
-export default TutorCard;
+export default (props) => {
+  const navigate = useNavigate();
+  return <TutorCard {...props} navigate={navigate} />;
+};

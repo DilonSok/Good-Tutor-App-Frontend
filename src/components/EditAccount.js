@@ -8,7 +8,6 @@ function EditAccount({ userId }) {
         username: '',
         email: '',
         password: '',
-        // ...other fields
     });
 
     useEffect(() => {
