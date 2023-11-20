@@ -13,6 +13,8 @@ function Navbar() {
   const menuRef = useRef(null);
   const profileIconRef = useRef(null);
   const navigate = useNavigate();
+  let profilePic = `https://robohash.org/${localStorage.username}.png?set=set4`;
+
 
   //Function to logout user
   const handleLogout = () => {
@@ -64,16 +66,16 @@ function Navbar() {
     e.stopPropagation();
     setIsOpen(prevIsOpen => !prevIsOpen);
   };
-  
+
   return (
     <div className="navbar">
       <div className="navbar-container">
         <ul className='navbar-leftside'>
           <li className="navbar-home">
-            <img className='navbar-home-logo' src={logo} alt="Home Logo" />
+            <NavLink to='/home'><img className='navbar-home-logo' src={logo} alt="Home Logo" /></NavLink>
           </li>
           <li className='find-tutor-button'>
-            Find Tutor
+            <NavLink to='/search'>Find tutors</NavLink>
           </li>
         </ul>
         <ul className='navbar-rightside'>
@@ -81,9 +83,7 @@ function Navbar() {
             // If logged in, show profile icon and menu
             <>
               <li className='navbar-profile-logo' onClick={toggleMenu} ref={profileIconRef}>
-                <div className='navbar-profile-name'>
-                  DS
-                </div>
+                  <img className='profile-picture' src={profilePic} alt="temp" />
               </li>
               <div ref={menuRef}>
                 <Menu isOpen={isOpen}>

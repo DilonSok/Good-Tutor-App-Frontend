@@ -4,16 +4,22 @@ import photo from '../images/photo.jpeg';
 import logo from '../images/logo.jpg';
 
 function HomePage(){
+  const user = localStorage.getItem('user');
+  let displayName = "undefined"
+  if(user){
+    const userObj = JSON.parse(user);
+     displayName= userObj.firstName + " " + userObj.lastName;
+  }
+
   return(
     <div>
       <div className="title">
-        <h3>Welcome back, User</h3>
+        <h3>Welcome back, {displayName}!</h3>
       </div>
       <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <img
           src={logo}
           alt="Image Description"
-          style={{ width: '25%', height: '200px'}}
         />
         <img
           src={photo}
