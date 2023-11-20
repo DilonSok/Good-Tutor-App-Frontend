@@ -42,7 +42,7 @@ class TutorCard extends Component {
                 <h3>Classes: {this.props.classes.join(', ')}</h3>
                 <h3>Rating: {this.props.rating}/5 Stars</h3>
                 <p>{this.props.description}</p>
-                <h3><button onClick={this.viewProfile}>View Profile</button></h3> {/* Changed to button */}
+                <h3><a href=''>View profile</a></h3>
                 <button className='button' onClick={this.handleMessage}>Message</button>
               </div>
             </div>
