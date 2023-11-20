@@ -120,8 +120,10 @@ function SearchPage() {
             <button className="filter-button" type='submit'>Filter</button>
         </form>
       </div>
+      <div className='space'>
+
+      </div>
       <Tutors filters={filters} />
-      <TutorForm />
     </div>
   );
 }

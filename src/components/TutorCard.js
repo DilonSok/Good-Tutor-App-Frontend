@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
-//import '../css/TutorCard.css';
-import { useNavigate } from 'react-router-dom';
+import { Axios } from 'axios';
+import '../css/TutorCard.css';
 
 class TutorCard extends Component {
   constructor(props) {
@@ -37,7 +36,7 @@ class TutorCard extends Component {
               <div className="profileinfo">
                 <h1>{this.props.username}</h1>
                 <h3>Classes: {this.props.classes.join(', ')}</h3>
-                <h3>Rating: {this.props.rating}/5 Rating</h3>
+                <h3>Rating: {this.props.rating}/5 Stars</h3>
                 <p>{this.props.description}</p>
                 <h3><button onClick={this.viewProfile}>View Profile</button></h3> {/* Changed to button */}
                 <button onClick={this.handleMessage}>Message</button>
