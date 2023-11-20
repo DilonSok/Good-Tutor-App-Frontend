@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Axios } from 'axios';
+import Axios from 'axios'; // Note: Axios is imported directly, not destructured
+import { useNavigate } from 'react-router-dom'; // Add this line to import useNavigate
 import '../css/TutorCard.css';
 
 class TutorCard extends Component {
