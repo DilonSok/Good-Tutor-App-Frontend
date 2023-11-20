@@ -5,71 +5,71 @@ import Popup from './Popup';
 
 function Reviews() {
 
-  //variables
+  //variables to make/add a review
   const [showPopup, setShowPopup] = useState(false);
   const [reviews, setReviews] = useState([]); // Array to store submitted reviews
+  const popUpText = '';
 
   //track whether a user has liked or disliked a review
   const [likedReviews, setLikedReviews] = useState([]);
   const [dislikedReviews, setDislikedReviews] = useState([]);
 
-  const popUpText = '';
-
+  //Show the pop up when requested
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
 
+  //add a review
   const addReview = (review) => {
-    // Initialize likes and dislikes to 0
+    // Initialize likes and dislikes on a review to 0
     review.likes = 0;
     review.dislikes = 0;
         
-    // Add the submitted review to the array
+    // Add the submitted review to the array of reviews
     setReviews([...reviews, review]);
   };
 
+  //Thumbs Up Button 
   const toggleLike = (index) => {
+    // If the user hasn't pressed the thumbs up button yet, allow them to press it to like it
     if (!likedReviews.includes(index)) {
-      // If the user hasn't liked it, toggle like
       setLikedReviews([...likedReviews, index]);
       setDislikedReviews(dislikedReviews.filter((item) => item !== index));
-
-      // Increment likes
+      // Increment the number of likes
       const updatedReviews = [...reviews];
       updatedReviews[index].likes += 1;
       setReviews(updatedReviews);
     } else {
-      // If the user has already liked it, undo like
+      // If the user has already liked it, and they click on the button again, undo like
       setLikedReviews(likedReviews.filter((item) => item !== index));
-
-      // Decrement the likes 
+      // Decrement the number of likes 
       const updatedReviews = [...reviews];
       updatedReviews[index].likes -= 1;
       setReviews(updatedReviews);
     }
   };
 
+  //Thumbs Down Button
   const toggleDislike = (index) => {
+    // If the user hasn't pressed the thumbs down button, allow them to press it to dislike it
     if (!dislikedReviews.includes(index)) {
-      // If the user hasn't disliked it
       setDislikedReviews([...dislikedReviews, index]);
       setLikedReviews(likedReviews.filter((item) => item !== index));
-
-      // Increment the dislikes counter 
+      // Increment the number of dislikes counter 
       const updatedReviews = [...reviews];
       updatedReviews[index].dislikes += 1;
       setReviews(updatedReviews);
     } else {
-      // If the user has already disliked it, undo dislike
+      // If the user has already disliked it, and they click on the button again, undo dislike
       setDislikedReviews(dislikedReviews.filter((item) => item !== index));
-
-      // Decrement the dislikes counter 
+      // Decrement the number of dislikes 
       const updatedReviews = [...reviews];
       updatedReviews[index].dislikes -= 1;
       setReviews(updatedReviews);
     }
   };
 
+  //Calculate the rating of the tutor (average of all ratings)
   function calculateOverallRating(reviews) {
     if (reviews.length === 0) {
       return 0; // Default to 0 if there are no reviews to avoid division by zero
@@ -142,7 +142,7 @@ function Reviews() {
             </div>
           </div>
         ))}
-          </div>
+        </div>
       </div>
   );
 }
