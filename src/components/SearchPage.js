@@ -121,10 +121,9 @@ function SearchPage() {
         </form>
       </div>
       <div className='space'>
-        
+
       </div>
       <Tutors filters={filters} />
-      <TutorForm />
     </div>
   );
 }
