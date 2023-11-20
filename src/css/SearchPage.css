@@ -7,6 +7,10 @@
     font-size: 18px;
     border: 1px solid black;
   }
+
+  .space{
+    padding: 40px;
+  }
   
 .filter-container {
     display: flex;

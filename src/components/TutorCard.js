@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Axios } from 'axios';
+import '../css/TutorCard.css';
 
 class TutorCard extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class TutorCard extends Component {
               <div className="profileinfo">
                 <h1>{this.props.username}</h1>
                 <h3>Classes: {this.props.classes.join(', ')}</h3>
-                <h3>Rating: {this.props.rating}/5 Rating</h3>
+                <h3>Rating: {this.props.rating}/5 Stars</h3>
                 <p>{this.props.description}</p>
                 <h3><a href="">View Profile</a></h3>
                 <button onClick={this.handleDelete}>Message</button>
