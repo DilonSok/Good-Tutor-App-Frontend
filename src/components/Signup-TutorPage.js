@@ -15,13 +15,13 @@ function SignupTutor() {
     const [description, setDescription] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [availability, setAvailability] = useState({
-        MONDAY: false,
-        TUESDAY: false,
-        WEDNESDAY: false,
-        THURSDAY: false,
-        FRIDAY: false,
-        SATURDAY: false,
-        SUNDAY: false
+        Monday: false,
+        Tuesday: false,
+        Wednesday: false,
+        Thursday: false,
+        Friday: false,
+        Saturday: false,
+        Sunday: false
     });
     const navigate = useNavigate();
 
@@ -81,7 +81,7 @@ function SignupTutor() {
         }
 
         if (!validatePassword(password)) {
-            alert('Password does not meet criteria');
+            alert('Password does not meet criteria, the password must be at least 8 characters long and contain at least one symbol.');
             return;
         }
 
