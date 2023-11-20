@@ -28,24 +28,23 @@ function ConversationPage() {
                 conversationId: currentConversation._id,
                 content: currentMessage
             })
-            .then(() => {
-                // Re-fetch the conversation to get updated messages
-                return Axios.get(`http://localhost:3500/messages/${userID}/conversations`);
-            })
-            .then(response => {
-                // Update conversations and reset the current conversation
-                setConversations(response.data.data);
-                const updatedCurrentConversation = response.data.data.find(conv => conv._id === currentConversation._id);
-                setCurrentConversation(updatedCurrentConversation);
-                setMessages(updatedCurrentConversation ? updatedCurrentConversation.messages : []);
-                setCurrentMessage("");
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+                .then(() => {
+                    // Re-fetch the conversation to get updated messages
+                    return Axios.get(`http://localhost:3500/messages/${userID}/conversations`);
+                })
+                .then(response => {
+                    // Update conversations and reset the current conversation
+                    setConversations(response.data.data);
+                    const updatedCurrentConversation = response.data.data.find(conv => conv._id === currentConversation._id);
+                    setCurrentConversation(updatedCurrentConversation);
+                    setMessages(updatedCurrentConversation ? updatedCurrentConversation.messages : []);
+                    setCurrentMessage("");
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         }
     };
-    
 
     const loadMessages = (conversationID) => {
         const conversation = conversations.find(conv => conv._id === conversationID);
@@ -54,7 +53,8 @@ function ConversationPage() {
             setMessages(conversation.messages);
         }
     };
-    
+
+
     const handleInputChange = (e) => {
         setCurrentMessage(e.target.value);
     };
@@ -74,13 +74,11 @@ function ConversationPage() {
                     <div className="conversations-list-container">
                         {conversations.map((conversation, index) => (
                             <div
-        key={index}
-        className="conversation"
-        onClick={() => loadMessages(conversation._id)} // Ensure correct ID is passed
-    >
-                                <div>test</div>
-                                {/* <div>{conversation.tutorName}</div> this will need to have some way to get recepients name through recepientID*/}
-                                <div>...</div>
+                                key={index}
+                                className="conversation"
+                                onClick={() => loadMessages(conversation._id)}
+                            >
+                                <div>{conversation.conversationTitle}</div>
                             </div>
                         ))}
                     </div>
@@ -92,8 +90,13 @@ function ConversationPage() {
                     <div className="messages-container">
                         {messages.map((msg, index) => (
                             <div key={index} className={`message ${msg.sender._id === userID ? "right" : "left"}`}>
-                                {msg.content}
-                            </div>
+                            {msg.sender._id === userID && ( // Only for user's messages
+                                <span className="delivery-status">
+                                    {msg.deliveryStatus ? '✓' : '✗'} {/* Checkmark or X symbol */}
+                                </span>
+                            )}
+                            {msg.content}
+                        </div>
                         ))}
                     </div>
                     <input

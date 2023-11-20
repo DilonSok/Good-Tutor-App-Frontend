@@ -6,7 +6,7 @@ import '../css/TutorCard.css';
 class TutorCard extends Component {
   constructor(props) {
     super(props);
-    
+
     this.url = `https://robohash.org/${this.props.username}.png?set=set4`;
     this.handleMessage = this.handleMessage.bind(this);
   }
@@ -15,18 +15,21 @@ class TutorCard extends Component {
     const loggedInUserId = localStorage.getItem('userID'); // Retrieve logged-in user's ID
     const tutorId = this.props.id; // Replace with actual prop for tutor's ID
 
-    // Assuming a POST endpoint to start a new conversation
-    Axios.post('http://localhost:3500/messages/start', { senderId: loggedInUserId, recipientId: tutorId })
+    Axios.post('http://localhost:3500/messages/start', {
+      senderId: loggedInUserId,
+      recipientId: tutorId,
+      recipientUserName: this.props.username // Correctly pass the recipient's username
+    })
       .then(response => {
-        // Navigate to the messaging page
         this.props.navigate('/messages');
       })
       .catch(error => {
         console.error('Error starting conversation:', error);
       });
+
   }
-  
-  render() { 
+
+  render() {
     return (
       <div className="container">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
