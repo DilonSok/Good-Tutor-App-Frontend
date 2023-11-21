@@ -29,6 +29,17 @@ class TutorCard extends Component {
 
   }
 
+  handleViewProfile = () => {
+    Axios.get(`http://localhost:3500/users/getone`, { params: { username: this.props.username } })
+      .then(response => {
+        console.log(response);
+        this.props.navigate('/profile-view', { state: { user: response.data } });
+      })
+      .catch(error => {
+        console.error('Error fetching profile:', error);
+      });
+  };
+
   render() {
     return (
       <div className="container">
@@ -42,7 +53,7 @@ class TutorCard extends Component {
                 <h3>Classes: {this.props.classes.join(', ')}</h3>
                 <h3>Rating: {this.props.rating}/5 Stars</h3>
                 <p>{this.props.description}</p>
-                <h3><a href=''>View profile</a></h3>
+                <h3><button onClick={this.handleViewProfile}>View profile</button></h3>
                 <button className='button' onClick={this.handleMessage}>Message</button>
               </div>
             </div>

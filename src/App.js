@@ -24,7 +24,7 @@ function App() {
             <Route path="/signup-tutor" Component={SignupTutor} />
             <Route path="/signup-student" Component={SignupStudent} />
             <Route path="/reviews" Component={Reviews} />
-            <Route path="/reviews" Component={Reviews} />
+            <Route path="/profile-view" Component={Reviews} />
             <Route path="/home" Component={HomePage} />
             <Route path="/messages" Component={ConversationPage} />
             <Route path="/profile" Component={ProfilePage} />
