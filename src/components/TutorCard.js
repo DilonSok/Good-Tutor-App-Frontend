@@ -32,7 +32,7 @@ class TutorCard extends Component {
   handleViewProfile = () => {
     Axios.get(`http://localhost:3500/users/getone`, { params: { username: this.props.username } })
       .then(response => {
-        console.log(response);
+        localStorage.setItem('tutorProfile', JSON.stringify(response.data));
         this.props.navigate('/profile-view', { state: { user: response.data } });
       })
       .catch(error => {
