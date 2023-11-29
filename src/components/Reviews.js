@@ -4,12 +4,13 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import Popup from './Popup';
 
 function Reviews() {
-
+  
 
   const [tutorProfile, setTutorProfile] = useState({
-    name: '',
+    username: '',
+    description: '',
     classes: [],
-    availability: '',
+    availability: []
   });
 
   useEffect(() => {
@@ -96,13 +97,15 @@ function Reviews() {
   };
 
   const overallRating = calculateOverallRating(reviews);
+  let profilePic = `https://robohash.org/${tutorProfile.username}.png?set=set4`;
 
 
   return (
     <div className="reviews-container">
       <div className="header-content">
-        <i className="fa-solid fa-circle-user fa-8x"></i>
-        <h1 className="header-title"> Tutor Name </h1>
+        <img className='profile-picture' src={profilePic} alt="temp" />
+
+        <h1 className="header-title">{tutorProfile.username} </h1>
       </div>
       <div className="line1"></div>
       <div className="tutor-info-title">
@@ -110,9 +113,10 @@ function Reviews() {
       </div>
       <div className='line2'></div>
       <div className="profile-info">
+        <p>Description: {tutorProfile.description}</p>
         <p>Rating: {overallRating.toFixed(1)}</p>
         <p>Classes: {tutorProfile.classes.join(', ')}</p>
-        <p>Availability: {tutorProfile.availability}</p>
+        <p>Availability: {tutorProfile.availability.join(', ')}</p>
       </div>
       <div className='line2'></div>
       <div className="reviews-title">
