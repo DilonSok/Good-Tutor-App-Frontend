@@ -53,18 +53,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-style: solid;
-  border-width: 3px;
-  border-radius: 50%;
-  border-color: rgb(60, 60, 136);
   width: 25px;
   height: 25px;
   cursor: pointer;
   position: relative; 
 }
 
-.navbar-profile-name{
-  font-size: 12px;
+.navbar-profile-logo img{
+  width: 55px;
+  margin-right: 30px;
+}
+
+.profile-picture{
+  width: 100%;
 }
 
 .navlinks a{

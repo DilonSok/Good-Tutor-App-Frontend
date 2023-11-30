@@ -1,9 +1,25 @@
-import React, {useState} from 'react';
+import React, { useState , useEffect } from 'react';
 import '../css/Reviews.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Popup from './Popup';
 
 function Reviews() {
+  
+
+  const [tutorProfile, setTutorProfile] = useState({
+    username: '',
+    description: '',
+    classes: [],
+    availability: []
+  });
+
+  useEffect(() => {
+    const storedProfile = localStorage.getItem('tutorProfile');
+    if (storedProfile) {
+      setTutorProfile(JSON.parse(storedProfile));
+    }
+  }, []);
+
 
   //variables to make/add a review
   const [showPopup, setShowPopup] = useState(false);
@@ -24,7 +40,7 @@ function Reviews() {
     // Initialize likes and dislikes on a review to 0
     review.likes = 0;
     review.dislikes = 0;
-        
+
     // Add the submitted review to the array of reviews
     setReviews([...reviews, review]);
   };
@@ -74,54 +90,57 @@ function Reviews() {
     if (reviews.length === 0) {
       return 0; // Default to 0 if there are no reviews to avoid division by zero
     }
-  
+
     const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
     const overallRating = totalRating / reviews.length;
     return overallRating;
   };
 
   const overallRating = calculateOverallRating(reviews);
+  let profilePic = `https://robohash.org/${tutorProfile.username}.png?set=set4`;
 
 
   return (
-      <div className="reviews-container">
-        <div className="header-content">
-          <i className="fa-solid fa-circle-user fa-8x"></i>
-          <h1 className="header-title"> Tutor Name </h1>
-        </div>
-        <div className="line1"></div>
-          <div className ="tutor-info-title">
-            <p> About </p>
-          </div>
-          <div className='line2'></div>
-          <div className="profile-info">
-            <p> Rating: {overallRating.toFixed(1)}</p>
-            <p> Classes:  </p> 
-            <p> Availability: </p>
-          </div>
-          <div className='line2'></div>
-          <div className= "reviews-title">
-            <p> Reviews </p>
-            <button className='popUpButton' onClick={togglePopup}>Add Review</button>
-          </div>
-          <div className="line"></div>
-          {showPopup && <Popup content={popUpText} onClose={togglePopup} onSubmit={addReview}  />}
-          <div className="reviews-list">
+    <div className="reviews-container">
+      <div className="header-content">
+        <img className='profile-picture' src={profilePic} alt="temp" />
+
+        <h1 className="header-title">{tutorProfile.username} </h1>
+      </div>
+      <div className="line1"></div>
+      <div className="tutor-info-title">
+        <p> About </p>
+      </div>
+      <div className='line2'></div>
+      <div className="profile-info">
+        <p>Description: {tutorProfile.description}</p>
+        <p>Rating: {overallRating.toFixed(1)}</p>
+        <p>Classes: {tutorProfile.classes.join(', ')}</p>
+        <p>Availability: {tutorProfile.availability.join(', ')}</p>
+      </div>
+      <div className='line2'></div>
+      <div className="reviews-title">
+        <p> Reviews </p>
+        <button className='popUpButton' onClick={togglePopup}>Add Review</button>
+      </div>
+      <div className="line"></div>
+      {showPopup && <Popup content={popUpText} onClose={togglePopup} onSubmit={addReview} />}
+      <div className="reviews-list">
         {reviews.map((review, index) => (
           <div key={index} className="review">
             <div className="star-rating">
               {[...Array(review.rating)].map((_, i) => (
                 <div className="stars">
-                <i className="fa-regular fa-star"></i>
+                  <i className="fa-regular fa-star"></i>
                 </div>
               ))}
               <div className="flag-icon">
-              <i className="fa-solid fa-flag"/>
-             </div>
+                <i className="fa-solid fa-flag" />
+              </div>
             </div>
-            <div className = "review-text">
-            <p>{review.review}</p>
-            <div className="like-dislike">
+            <div className="review-text">
+              <p>{review.review}</p>
+              <div className="like-dislike">
                 <button
                   onClick={() => toggleLike(index)}
                   className={likedReviews.includes(index) ? 'highlighted' : ''}
@@ -142,8 +161,8 @@ function Reviews() {
             </div>
           </div>
         ))}
-        </div>
       </div>
+    </div>
   );
 }
 

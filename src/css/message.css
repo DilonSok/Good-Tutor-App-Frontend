@@ -3,15 +3,28 @@
     margin: 5px;
     border-radius: 10px;
     background-color: lightgray;
+    max-width: 60%; /* Limit the maximum width */
+    word-wrap: break-word; /* Ensure long words do not overflow */
 }
 
 .right {
-    margin-left: 55%;
-    background-color: #DCF8C6; /* Example color for user's messages */
-
+    margin-left: 55%; /* Align to the right */
+    color: white;
+    background-color: rgb(77, 118, 255); /* Example color for user's messages */
 }
 
 .left {
-    margin-right: 55%;
+    margin-right: 55%; /* Align to the left */
     background-color: #dfdfdf; /* Example color for others' messages */
+}
+
+.delivery-status {
+    margin-right: 5px;
+    color: rgb(255, 255, 255); /* Example color for the checkmark */
+    font-weight: bold;
+}
+
+/* Optionally, style differently for undelivered messages */
+.delivery-status.false {
+    color: red; /* Example color for the 'X' symbol */
 }

@@ -6,7 +6,7 @@ import '../css/TutorCard.css';
 class TutorCard extends Component {
   constructor(props) {
     super(props);
-    
+
     this.url = `https://robohash.org/${this.props.username}.png?set=set4`;
     this.handleMessage = this.handleMessage.bind(this);
   }
@@ -15,18 +15,32 @@ class TutorCard extends Component {
     const loggedInUserId = localStorage.getItem('userID'); // Retrieve logged-in user's ID
     const tutorId = this.props.id; // Replace with actual prop for tutor's ID
 
-    // Assuming a POST endpoint to start a new conversation
-    Axios.post('http://localhost:3500/messages/start', { senderId: loggedInUserId, recipientId: tutorId })
+    Axios.post('http://localhost:3500/messages/start', {
+      senderId: loggedInUserId,
+      recipientId: tutorId,
+      recipientUserName: this.props.username // Correctly pass the recipient's username
+    })
       .then(response => {
-        // Navigate to the messaging page
         this.props.navigate('/messages');
       })
       .catch(error => {
         console.error('Error starting conversation:', error);
       });
+
   }
-  
-  render() { 
+
+  handleViewProfile = () => {
+    Axios.get(`http://localhost:3500/users/getone`, { params: { username: this.props.username } })
+      .then(response => {
+        localStorage.setItem('tutorProfile', JSON.stringify(response.data));
+        this.props.navigate('/profile-view', { state: { user: response.data } });
+      })
+      .catch(error => {
+        console.error('Error fetching profile:', error);
+      });
+  };
+
+  render() {
     return (
       <div className="container">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
@@ -39,8 +53,8 @@ class TutorCard extends Component {
                 <h3>Classes: {this.props.classes.join(', ')}</h3>
                 <h3>Rating: {this.props.rating}/5 Stars</h3>
                 <p>{this.props.description}</p>
-                <h3><button onClick={this.viewProfile}>View Profile</button></h3> {/* Changed to button */}
-                <button onClick={this.handleMessage}>Message</button>
+                <h3><button onClick={this.handleViewProfile}>View profile</button></h3>
+                <button className='button' onClick={this.handleMessage}>Message</button>
               </div>
             </div>
           </div>
