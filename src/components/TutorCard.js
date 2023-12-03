@@ -33,7 +33,7 @@ class TutorCard extends Component {
     Axios.get(`http://localhost:3500/users/getone`, { params: { username: this.props.username } })
       .then(response => {
         localStorage.setItem('tutorProfile', JSON.stringify(response.data));
-        this.props.navigate('/profile-view', { state: { user: response.data } });
+        this.props.navigate('/profile-view', { state: { user: response.data, id: this.props.id } });
       })
       .catch(error => {
         console.error('Error fetching profile:', error);

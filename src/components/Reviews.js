@@ -1,16 +1,20 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState , useEffect} from 'react';
+import { useLocation } from 'react-router-dom';
 import '../css/Reviews.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Popup from './Popup';
+//import { Axios } from 'axios';
+
+const axios = require('axios');
 
 function Reviews() {
-  
-
   const [tutorProfile, setTutorProfile] = useState({
     username: '',
     description: '',
     classes: [],
-    availability: []
+    availability: [],
+    rating: [],
+    comments: []
   });
 
   useEffect(() => {
@@ -30,19 +34,92 @@ function Reviews() {
   const [likedReviews, setLikedReviews] = useState([]);
   const [dislikedReviews, setDislikedReviews] = useState([]);
 
+  //state objects
+  const location = useLocation();
+  const { state } = location;
+
+  // Access state passed from the previous page
+  const { user, id } = state;
+  console.log(location);
+
+  //set new reviews
+  axios.get('http://localhost:3500/users/getone', { params: { username: user.username } }).then(response => {
+    const arraySize = response.data.rating.length;
+    console.log(response.data.rating);
+    console.log(response.data.comments);
+
+    const newReviews = [];
+    for (let i = 0; i < arraySize; i++) {
+      const newReview = {
+        rating: response.data.rating[i],
+        comments: response.data.comments[i]
+      };
+      newReviews.push(newReview);
+
+    }
+    setReviews(newReviews);
+    console.log(reviews);
+  })
+    .catch(error => {
+      console.log('Error');
+    });
+
   //Show the pop up when requested
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
 
   //add a review
-  const addReview = (review) => {
+  const AddReview = async (review) => {
+    
+
     // Initialize likes and dislikes on a review to 0
     review.likes = 0;
     review.dislikes = 0;
 
     // Add the submitted review to the array of reviews
-    setReviews([...reviews, review]);
+    //setReviews([...reviews, review]);
+    try {
+      const apiUrl = 'http://localhost:3500/users/updaterating';
+
+      //data to be sent to API
+      const data = {
+        id: id,
+        rating: review.rating,
+        comments: review.comments,
+      };
+
+      axios.patch(apiUrl, data).then(response => {
+        console.log('Data added successfully:', response.data);
+
+        axios.get('http://localhost:3500/users/getone', { params: { username: user.username } }).then(response => {
+        const arraySize = response.data.rating.length;
+        console.log(response.data.rating);
+        console.log(response.data.comments);
+
+        const newReviews = [];
+        for (let i = 0; i < arraySize; i++){
+          const newReview = {
+            rating: response.data.rating[i],
+            comments: response.data.comments[i]
+          };
+          newReviews.push(newReview);
+          
+        }
+        setReviews(newReviews);
+        console.log(reviews);
+        })
+        .catch(error => {
+          console.log('Error');
+        });
+      })
+      .catch(error => {
+        console.log('Error');
+      });
+    }
+    catch(error) {
+      console.error('Error uploading review:', error);
+    }
   };
 
   //Thumbs Up Button 
@@ -124,7 +201,7 @@ function Reviews() {
         <button className='popUpButton' onClick={togglePopup}>Add Review</button>
       </div>
       <div className="line"></div>
-      {showPopup && <Popup content={popUpText} onClose={togglePopup} onSubmit={addReview} />}
+      {showPopup && <Popup content={popUpText} onClose={togglePopup} onSubmit={AddReview} />}
       <div className="reviews-list">
         {reviews.map((review, index) => (
           <div key={index} className="review">
@@ -139,7 +216,7 @@ function Reviews() {
               </div>
             </div>
             <div className="review-text">
-              <p>{review.review}</p>
+              <p>{review.comments}</p>
               <div className="like-dislike">
                 <button
                   onClick={() => toggleLike(index)}
