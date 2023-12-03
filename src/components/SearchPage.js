@@ -112,12 +112,13 @@ function SearchPage() {
                 <h3>Courses</h3>
                 <input
                   type="text"
+                  class="search-input"
                   value={inputValue}
                   onChange={handleInputChange}
                   placeholder="Enter Course..."
                 />
             </div>
-            <button className="filter-button" type='submit'>Filter</button>
+            <button className="button" type='submit'>Filter</button>
         </form>
       </div>
       <div className='space'>
