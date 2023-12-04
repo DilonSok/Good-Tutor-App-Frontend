@@ -33,14 +33,16 @@ class Tutors extends Component {
     applyFilters() {
         const { rating, availability, course } = this.props.filters;
         let filtered = this.state.listofTutors.filter(tutor => {
-            const matchesRating = !rating.length || rating.includes(String(tutor.rating));
-            const matchesAvailability = !availability.length || availability.some(day => tutor.availability && tutor.availability.includes(day));
-            const matchesCourse = !course || tutor.classes && tutor.classes.includes(course);
-
-            return matchesRating && matchesAvailability && matchesCourse;
+          const matchesRating = !rating.length || rating.includes(String(tutor.rating));
+          const matchesAvailability = !availability.length || availability.some(day => tutor.availability && tutor.availability.includes(day));
+          const matchesCourse = !course || (tutor.classes && tutor.classes.includes(course));
+          const hasBooleanValueOne = localStorage.getItem("user").role == 1;
+      
+          return matchesRating && matchesAvailability && matchesCourse && hasBooleanValueOne;
         });
         this.setState({ filteredTutors: filtered });
-    }
+      }
+      
 
     render() {
         const { filteredTutors } = this.state;
@@ -55,10 +57,9 @@ class Tutors extends Component {
                       classes={tutor.classes}
                       username={tutor.username}
                       rating={tutor.rating}
-                      description={tutor.description}
-                      // Add other props as needed
-                    />
-                ))}
+                      description={tutor.description} 
+                    />                 
+                    ))}
             </div>
         );
     }
