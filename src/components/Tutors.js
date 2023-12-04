@@ -36,9 +36,9 @@ class Tutors extends Component {
           const matchesRating = !rating.length || rating.includes(String(tutor.rating));
           const matchesAvailability = !availability.length || availability.some(day => tutor.availability && tutor.availability.includes(day));
           const matchesCourse = !course || (tutor.classes && tutor.classes.includes(course));
-          const hasBooleanValueOne = localStorage.getItem("user").role == 1;
+          const roleCheck = localStorage.getItem("user").role == 1;
       
-          return matchesRating && matchesAvailability && matchesCourse && hasBooleanValueOne;
+          return matchesRating && matchesAvailability && matchesCourse && roleCheck;
         });
         this.setState({ filteredTutors: filtered });
       }
