@@ -9,7 +9,9 @@ function ConversationPage() {
     const [currentConversation, setCurrentConversation] = useState(null);
     const [messages, setMessages] = useState([]);
     const [currentMessage, setCurrentMessage] = useState("");
-
+    const user = JSON.parse(localStorage.getItem('user')) || {};
+    const username = user.username || 'default';
+    
     useEffect(() => {
         Axios.get(`http://localhost:3500/messages/${userID}/conversations`)
             .then(response => {
@@ -49,6 +51,7 @@ function ConversationPage() {
     const loadMessages = (conversationID) => {
         const conversation = conversations.find(conv => conv._id === conversationID);
         if (conversation) {
+            console.log(conversation.conversationTitle)
             setCurrentConversation(conversation);
             setMessages(conversation.messages);
         }
@@ -64,6 +67,7 @@ function ConversationPage() {
             sendMessage();
         }
     };
+
     return (
         <div className="conversations-page">
             <div className="conversations-page-container">
@@ -72,20 +76,26 @@ function ConversationPage() {
                         Conversations
                     </div>
                     <div className="conversations-list-container">
-                        {conversations.map((conversation, index) => (
+                    {conversations.map((conversation, index) => {
+                        // Define profilePic here so it has access to the current `conversation`
+                        let profilePic = `https://robohash.org/${conversation.conversationTitle}.png?set=set4`;
+
+                        return (
                             <div
                                 key={index}
                                 className="conversation"
                                 onClick={() => loadMessages(conversation._id)}
                             >
+                                <img className='profile-picture' src={profilePic} alt={`${conversation.conversationTitle}`} />
                                 <div>{conversation.conversationTitle}</div>
                             </div>
-                        ))}
-                    </div>
+                        );
+                    })}
+                </div>
                 </div>
                 <div className="view-conversation-container">
                     <div className="recipient-name">
-                        {currentConversation ? currentConversation.tutorName : "Select a Conversation"}
+                        {currentConversation ? currentConversation.conversationTitle : "Select a Conversation"}
                     </div>
                     <div className="messages-container">
                         {messages.map((msg, index) => (

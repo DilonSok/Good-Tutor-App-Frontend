@@ -17,54 +17,42 @@ function Reviews() {
     comments: []
   });
 
+  const [showPopup, setShowPopup] = useState(false);
+  const [reviews, setReviews] = useState([]);
+  const popUpText = '';
+  const [likedReviews, setLikedReviews] = useState([]);
+  const [dislikedReviews, setDislikedReviews] = useState([]);
+
+  const location = useLocation();
+  const { state } = location;
+  const { user, id } = state;
+
   useEffect(() => {
     const storedProfile = localStorage.getItem('tutorProfile');
     if (storedProfile) {
       setTutorProfile(JSON.parse(storedProfile));
     }
-  }, []);
 
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get('http://localhost:3500/users/getone', { params: { username: user.username } });
+        const arraySize = response.data.rating.length;
+        const newReviews = [];
+        for (let i = 0; i < arraySize; i++) {
+          newReviews.push({
+            rating: response.data.rating[i],
+            comments: response.data.comments[i]
+          });
+        }
+        setReviews(newReviews);
+      } catch (error) {
+        console.log('Error fetching reviews:', error);
+      }
+    };
 
-  //variables to make/add a review
-  const [showPopup, setShowPopup] = useState(false);
-  const [reviews, setReviews] = useState([]); // Array to store submitted reviews
-  const popUpText = '';
+    fetchReviews();
+  }, [user.username]); // Dependency array includes user.username
 
-  //track whether a user has liked or disliked a review
-  const [likedReviews, setLikedReviews] = useState([]);
-  const [dislikedReviews, setDislikedReviews] = useState([]);
-
-  //state objects
-  const location = useLocation();
-  const { state } = location;
-
-  // Access state passed from the previous page
-  const { user, id } = state;
-  console.log(location);
-
-  //set new reviews
-  axios.get('http://localhost:3500/users/getone', { params: { username: user.username } }).then(response => {
-    const arraySize = response.data.rating.length;
-    console.log(response.data.rating);
-    console.log(response.data.comments);
-
-    const newReviews = [];
-    for (let i = 0; i < arraySize; i++) {
-      const newReview = {
-        rating: response.data.rating[i],
-        comments: response.data.comments[i]
-      };
-      newReviews.push(newReview);
-
-    }
-    setReviews(newReviews);
-    console.log(reviews);
-  })
-    .catch(error => {
-      console.log('Error');
-    });
-
-  //Show the pop up when requested
   const togglePopup = () => {
     setShowPopup(!showPopup);
   };
@@ -180,7 +168,7 @@ function Reviews() {
   return (
     <div className="reviews-container">
       <div className="header-content">
-        <img className='profile-picture' src={profilePic} alt="temp" />
+        <img className='profile-pic' src={profilePic} alt="temp" />
 
         <h1 className="header-title">{tutorProfile.username} </h1>
       </div>

@@ -12,9 +12,10 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false); // States for the dropdown menu
   const menuRef = useRef(null);
   const profileIconRef = useRef(null);
+  const user = JSON.parse(localStorage.getItem('user')) || {};
+  const username = user.username || 'default';
   const navigate = useNavigate();
-  let profilePic = `https://robohash.org/${localStorage.username}.png?set=set4`;
-
+  let profilePic = `https://robohash.org/${username}.png?set=set4`;
 
   //Function to logout user
   const handleLogout = () => {

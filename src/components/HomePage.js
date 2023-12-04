@@ -8,7 +8,7 @@ function HomePage(){
   let displayName = "undefined"
   if(user){
     const userObj = JSON.parse(user);
-     displayName= userObj.firstName + " " + userObj.lastName;
+     displayName= userObj.username
   }
 
   return(
