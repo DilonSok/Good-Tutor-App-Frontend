@@ -46,11 +46,11 @@ function EditAccount({ userId }) {
     };
 
     return (
-        <div>
+        <div className='edit-account-container'>
             <div className='edit-header'>
-            <h1>Edit Account</h1>
+                <h1>Edit Account</h1>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='edit-account-form'>
                 {/* Input fields for editing user data */}
                 <div>
                     <h2>Change Username</h2>

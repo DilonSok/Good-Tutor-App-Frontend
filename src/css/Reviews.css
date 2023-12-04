@@ -108,6 +108,9 @@
   margin-right: 10px;
 }
 
-.profile-picture{
+.profile-pic{
+  margin-left: 15px;
   width: 80px;
+  border: 1px solid;
+  border-radius: 50%;
 }

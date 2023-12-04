@@ -9,31 +9,37 @@ function LoginPage() {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
+    const fetchUserData = async (username) => {
+        try {
+            const response = await Axios.get(`http://localhost:3500/users/getone`, { 
+                params: { username: username } 
+            });
+            localStorage.setItem('user', JSON.stringify(response.data));
+            navigate('/home');
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+            setError('There was an error retrieving your data. Please try again later.');
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            // Send a POST request to your login endpoint
-            // In your login response handling
-            const response = await Axios.post('http://localhost:3500/users/login', { username, password });
-            console.log(response)
-            localStorage.setItem('authToken', response.data.token);
-            localStorage.setItem('userID', response.data.userId); // Storing user ID
-            console.log(response.data.userId)
-            
-            // Store the JWT token in localStorage or Context API/Redux
-            localStorage.setItem('authToken', response.data.token);
-
-            // Update login state and redirect to home
+            const loginResponse = await Axios.post('http://localhost:3500/users/login', { username, password });
+            localStorage.setItem('currentUsername', username);
+            localStorage.setItem('authToken', loginResponse.data.token);
+            localStorage.setItem('userID', loginResponse.data.userId);
             localStorage.setItem('isLoggedIn', 'true');
             window.dispatchEvent(new Event('loginStateChange'));
-            navigate('/home');
+
+            // Fetch user data and navigate
+            await fetchUserData(username);
         } catch (err) {
-            // Handle errors like invalid credentials
             if (err.response && err.response.status === 401) {
                 setError('Invalid username or password');
             } else {
-                setError('An error occurred. Please try again later.');
+                setError('An error occurred during login. Please try again later.');
             }
         }
     };

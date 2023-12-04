@@ -23,9 +23,17 @@
 .conversation{
     cursor: pointer;
     display:flex;
-    justify-content: space-between;
     align-items: center;
     justify-items: center;
+    border-bottom: 2px solid;
+    
+    width:100%
+}
+
+.profile-picture{
+    border: 1px solid;
+    border-radius: 50%;
+    width:40px;
     margin-right: 15px;
 }
 
@@ -55,3 +63,4 @@
 .view-conversation-container input:focus{
     outline: none;
 }
+

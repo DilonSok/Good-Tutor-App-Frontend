@@ -6,6 +6,7 @@
     text-align: center;
     font-size: 18px;
     border: 1px solid black;
+    z-index: 2;
   }
 
   .space{
@@ -18,7 +19,7 @@
     border-radius: 0%;
     border: 3px solid black;
     width: 80%;
-    
+    z-index: 2;
     
   }
 
@@ -103,5 +104,52 @@
     margin-top: 15px;
     margin-left: 90%;
 }
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid darkblue;
+    border-radius: 5px;
+    color: white;
+    background-color: darkblue;
+    transition: background-color 0.3s, color 0.3s;
+    margin-top: 20px; /* Increase the margin-top value */
+    margin-bottom: 10px;
+}
+
+.search-input {
+    width: 150px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-top: 0px;
+  }
+
+  .search-input:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(0, 128, 0, 0.3);
+  }
+
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  /* Optional: Add styles for hover state */
+  .search-icon:hover {
+    color: #4CAF50;
+  }
   
   
