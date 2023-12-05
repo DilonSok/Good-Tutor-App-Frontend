@@ -57,6 +57,40 @@ function Reviews() {
     setShowPopup(!showPopup);
   };
 
+   //Thumbs Up Button 
+   const toggleLike = (index, review) => {
+    console.log(index);
+    // If the user hasn't pressed the thumbs up button yet, allow them to press it to like it
+    if (!likedReviews.includes(index)) {
+      setLikedReviews([...likedReviews, index]);
+      setDislikedReviews(dislikedReviews.filter((item) => item !== index));
+      // Increment the number of likes
+      review.likes = 1;
+    } else {
+      // If the user has already liked it, and they click on the button again, undo like
+      setLikedReviews(likedReviews.filter((item) => item !== index));
+      // Decrement the number of likes 
+      review.likes = 0;
+    }
+  };
+
+  //Thumbs Down Button
+  const toggleDislike = (index, review) => {
+    // If the user hasn't pressed the thumbs down button, allow them to press it to dislike it
+    if (!dislikedReviews.includes(index)) {
+      setDislikedReviews([...dislikedReviews, index]);
+      setLikedReviews(likedReviews.filter((item) => item !== index));
+      // Increment the number of dislikes counter 
+      review.dislikes = 1;
+    } else {
+      // If the user has already disliked it, and they click on the button again, undo dislike
+      setDislikedReviews(dislikedReviews.filter((item) => item !== index));
+      // Decrement the number of dislikes 
+      review.dislikes = 0;
+    }
+  };
+
+
   //add a review
   const AddReview = async (review) => {
     
@@ -109,47 +143,9 @@ function Reviews() {
       console.error('Error uploading review:', error);
     }
   };
+  
 
-  //Thumbs Up Button 
-  const toggleLike = (index) => {
-    // If the user hasn't pressed the thumbs up button yet, allow them to press it to like it
-    if (!likedReviews.includes(index)) {
-      setLikedReviews([...likedReviews, index]);
-      setDislikedReviews(dislikedReviews.filter((item) => item !== index));
-      // Increment the number of likes
-      const updatedReviews = [...reviews];
-      updatedReviews[index].likes += 1;
-      setReviews(updatedReviews);
-    } else {
-      // If the user has already liked it, and they click on the button again, undo like
-      setLikedReviews(likedReviews.filter((item) => item !== index));
-      // Decrement the number of likes 
-      const updatedReviews = [...reviews];
-      updatedReviews[index].likes -= 1;
-      setReviews(updatedReviews);
-    }
-  };
-
-  //Thumbs Down Button
-  const toggleDislike = (index) => {
-    // If the user hasn't pressed the thumbs down button, allow them to press it to dislike it
-    if (!dislikedReviews.includes(index)) {
-      setDislikedReviews([...dislikedReviews, index]);
-      setLikedReviews(likedReviews.filter((item) => item !== index));
-      // Increment the number of dislikes counter 
-      const updatedReviews = [...reviews];
-      updatedReviews[index].dislikes += 1;
-      setReviews(updatedReviews);
-    } else {
-      // If the user has already disliked it, and they click on the button again, undo dislike
-      setDislikedReviews(dislikedReviews.filter((item) => item !== index));
-      // Decrement the number of dislikes 
-      const updatedReviews = [...reviews];
-      updatedReviews[index].dislikes -= 1;
-      setReviews(updatedReviews);
-    }
-  };
-
+ 
   //Calculate the rating of the tutor (average of all ratings)
   function calculateOverallRating(reviews) {
     if (reviews.length === 0) {
@@ -207,20 +203,20 @@ function Reviews() {
               <p>{review.comments}</p>
               <div className="like-dislike">
                 <button
-                  onClick={() => toggleLike(index)}
+                  onClick={() => toggleLike(index, review)}
                   className={likedReviews.includes(index) ? 'highlighted' : ''}
                   disabled={dislikedReviews.includes(index)}
                 >
                   <i className="far fa-thumbs-up"></i>
-                  {review.likes}
+                  {review.likes !== undefined ? review.likes : 0}
                 </button>
                 <button
-                  onClick={() => toggleDislike(index)}
+                  onClick={() => toggleDislike(index, review)}
                   className={dislikedReviews.includes(index) ? 'highlighted' : ''}
                   disabled={likedReviews.includes(index)}
                 >
                   <i className="far fa-thumbs-down"></i>
-                  {review.dislikes}
+                  {review.dislikes !== undefined ? review.dislikes : 0}
                 </button>
               </div>
             </div>
