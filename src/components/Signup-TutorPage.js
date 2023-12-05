@@ -95,7 +95,8 @@ function SignupTutor() {
             lastName, 
             classes: classesArray, 
             description, 
-            availability: selectedAvailability 
+            availability: selectedAvailability,
+            role: 1
         };
 
         try {

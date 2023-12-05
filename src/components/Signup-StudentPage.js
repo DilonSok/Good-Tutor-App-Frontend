@@ -67,7 +67,8 @@ function SignupStudent() {
             email,
             password,
             firstName,
-            lastName
+            lastName,
+            role: 0
         };
 
         try {
