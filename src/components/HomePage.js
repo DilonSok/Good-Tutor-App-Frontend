@@ -1,6 +1,6 @@
 import React from "react";
 import '../css/HomePage.css'; 
-import photo from '../images/photo.jpeg';
+// import photo from '../images/photo.jpeg';
 import logo from '../images/logo.jpg';
 
 function HomePage(){
@@ -21,11 +21,9 @@ function HomePage(){
           src={logo}
           alt="Image Description"
         />
-        <img
-          src={photo}
-          alt="Image Description"
-          style={{width: '100%', marginBottom: '0%', marginTop: '5px' }}
-        />
+        <div className="slogan-title">
+          <h4> Simple tutoring on your own schedule </h4>
+        </div>
       </div>
     </div>
   );
