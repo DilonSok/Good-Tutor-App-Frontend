@@ -10,7 +10,7 @@ import { faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 
 const axios = require('axios');
 
-function Reviews() {
+function ViewTutorProfilePage() {
   const navigate = useNavigate(); // Initialize useNavigate hook
   const [tutorProfile, setTutorProfile] = useState({
     username: '',
@@ -251,4 +251,4 @@ function Reviews() {
 }
 
 
-export default Reviews;
+export default ViewTutorProfilePage;

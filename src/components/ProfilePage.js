@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../css/Reviews.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -25,6 +25,7 @@ function ProfilePage() {
   // Retrieve username from local storage
   const storedUser = JSON.parse(localStorage.getItem('user'));
   const username = storedUser ? storedUser.username : null;
+  const userRole = storedUser ? storedUser.role : null;
   console.log(username)
 
   useEffect(() => {
@@ -63,9 +64,9 @@ function ProfilePage() {
     setShowPopup(!showPopup);
   };
 
- 
 
- 
+
+
   //Calculate the rating of the tutor (average of all ratings)
   function calculateOverallRating(reviews) {
     if (reviews.length === 0) {
@@ -85,62 +86,72 @@ function ProfilePage() {
     <div className="reviews-container">
       <div className="header-content">
         <img className='profile-pic' src={profilePic} alt="temp" />
-
-        <h1 className="header-title">{storedUser.username} </h1>
+        <h1 className="header-title">{storedUser.username}</h1>
       </div>
       <div className="line1"></div>
       <div className="tutor-info-title">
-        <p> About </p>
+        <p>About</p>
       </div>
       <div className='line2'></div>
       <div className="profile-info">
         <p>Description: {storedUser.description}</p>
-        <p>Rating: {overallRating.toFixed(1)}</p>
-        <p>Classes: {storedUser.classes.join(', ')}</p>
-        <p>Availability: {storedUser.availability.join(', ')}</p>
+        {/* Conditionally render these elements based on user role */}
+        {userRole === 1 && (
+          <>
+            <p>Rating: {overallRating.toFixed(1)}</p>
+            <p>Classes: {storedUser.classes.join(', ')}</p>
+            <p>Availability: {storedUser.availability.join(', ')}</p>
+          </>
+        )}
       </div>
-      <div className='line2'></div>
-      <div className="reviews-title">
-        <p> Reviews </p>
-      </div>
-      <div className="line"></div>
-      <div className="reviews-list">
-        {reviews.map((review, index) => (
-          <div key={index} className="review">
-            <div className="star-rating">
-              {[...Array(review.rating)].map((_, i) => (
-                <div className="stars">
-                  <i className="fa-regular fa-star"></i>
-                </div>
-              ))}
-              <div className="flag-icon">
-                <i className="fa-solid fa-flag" />
-              </div>
-            </div>
-            <div className="review-text">
-              <p>{review.comments}</p>
-              <div className="like-dislike">
-                <button
-                  className={likedReviews.includes(index) ? 'highlighted' : ''}
-                  disabled={dislikedReviews.includes(index)}
-                >
-                  <i className="far fa-thumbs-up"></i>
-                  {review.likes !== undefined ? review.likes : 0}
-                </button>
-                <button
-                  className={dislikedReviews.includes(index) ? 'highlighted' : ''}
-                  disabled={likedReviews.includes(index)}
-                >
-                  <i className="far fa-thumbs-down"></i>
-                  {review.dislikes !== undefined ? review.dislikes : 0}
-                </button>
-              </div>
-            </div>
+      {/* Conditionally render reviews section for tutors */}
+      {userRole === 1 && (
+        <>
+          <div className='line2'></div>
+          <div className="reviews-title">
+            <p>Reviews</p>
           </div>
-        ))}
-      </div>
+          <div className="line"></div>
+          <div className="reviews-list">
+            {reviews.map((review, index) => (
+              <div key={index} className="review">
+                <div className="star-rating">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <div className="stars">
+                      <i className="fa-regular fa-star"></i>
+                    </div>
+                  ))}
+                  <div className="flag-icon">
+                    <i className="fa-solid fa-flag" />
+                  </div>
+                </div>
+                <div className="review-text">
+                  <p>{review.comments}</p>
+                  <div className="like-dislike">
+                    <button
+                      className={likedReviews.includes(index) ? 'highlighted' : ''}
+                      disabled={dislikedReviews.includes(index)}
+                    >
+                      <i className="far fa-thumbs-up"></i>
+                      {review.likes !== undefined ? review.likes : 0}
+                    </button>
+                    <button
+                      className={dislikedReviews.includes(index) ? 'highlighted' : ''}
+                      disabled={likedReviews.includes(index)}
+                    >
+                      <i className="far fa-thumbs-down"></i>
+                      {review.dislikes !== undefined ? review.dislikes : 0}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
+
 }
 
 

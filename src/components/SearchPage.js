@@ -1,73 +1,19 @@
 import React, { useState } from 'react';
 import Tutors from './Tutors';
-import TutorForm from './TutorForm';
+import FilterDropdownMenu from './FilterDropdownMenu'; // Assuming this is your custom dropdown component
 import '../css/SearchPage.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-
-// ... (unchanged code)
-
-// ... (unchanged code)
-
-const DropdownMenu = ({ options, handleSelect }) => {
-  const [showOptions, setShowOptions] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState([]);
-
-  const handleToggle = (value) => {
-    const isSelected = selectedOptions.includes(value);
-    let updatedSelection = [];
-
-    if (isSelected) {
-      updatedSelection = selectedOptions.filter((option) => option !== value);
-    } else {
-      updatedSelection = [...selectedOptions, value];
-    }
-
-    setSelectedOptions(updatedSelection);
-    handleSelect(updatedSelection);
-  };
-
-  const handleDropdownClick = () => {
-    setShowOptions(!showOptions);
-  };
-
-  const handleItemClick = (value) => {
-    handleToggle(value);
-  };
-
-  const handleBlur = () => {
-    setShowOptions(false);
-  };
-
-  return (
-    <div className="dropdown" onBlur={handleBlur}>
-      <div className="dropdown-header" onClick={handleDropdownClick}>
-        <i className="fas fa-bars" style={{ color: showOptions ? 'blue' : 'black' }}></i>
-      </div>
-      {showOptions && (
-        <div className="dropdown-options">
-          {options.map((option, index) => (
-            <div
-              key={index}
-              onClick={() => handleItemClick(option.value)}
-              className={selectedOptions.includes(option.value) ? 'selected' : ''}
-            >
-              {option.label}
-            </div>
-          ))}
-        </div>
-      )}
-      {selectedOptions.length > 0 && <p>Selected option(s): {selectedOptions.join(', ')}</p>}
-    </div>
-  );
-};
-
-// ... (unchanged code)
-
-
-// ... (unchanged code)
-
 
 function SearchPage() {
+  // State to hold the selected filter values
+  const [filters, setFilters] = useState({
+    rating: [],
+    availability: [],
+    course: '',
+  });
+
+  const [filterUpdated, setFilterUpdated] = useState(false);
+
+  // Options for rating filter dropdown
   const ratingOptions = [
     { value: '1', label: '1 Star' },
     { value: '2', label: '2 Stars' },
@@ -76,78 +22,71 @@ function SearchPage() {
     { value: '5', label: '5 Stars' },
   ];
 
+  // Options for availability filter dropdown
   const availabilityOptions = [
-    { value: 'MONDAY', label: 'MONDAY' },
-    { value: 'TUESDAY', label: 'TUESDAY' },
-    { value: 'WEDNESDAY', label: 'WEDNESDAY' },
-    { value: 'THURSDAY', label: 'THURSDAY' },
-    { value: 'FRIDAY', label: 'FRIDAY' },
-    { value: 'SATURDAY', label: 'SATURDAY' },
-    { value: 'SUNDAY', label: 'SUNDAY' },
+    { value: 'Monday', label: 'Monday' },
+    { value: 'Tuesday', label: 'Tuesday' },
+    { value: 'Wednesday', label: 'Wednesday' },
+    { value: 'Thursday', label: 'Thursday' },
+    { value: 'Friday', label: 'Friday' },
+    { value: 'Saturday', label: 'Saturday' },
+    { value: 'Sunday', label: 'Sunday' },
   ];
 
-  const [selectedRating, setSelectedRating] = useState([]);
-  const [selectedAvailability, setSelectedAvailability] = useState([]);
-  const [inputValue, setInputValue] = useState('');
-
-  const handleRatingSelect = (selectedOptions) => {
-    setSelectedRating(selectedOptions);
+  // Handler for when a rating is selected or deselected
+  const handleRatingSelect = (selectedRatings) => {
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      rating: selectedRatings
+    }));
   };
 
-  const handleAvailabilitySelect = (selectedOptions) => {
-    setSelectedAvailability(selectedOptions);
+  // Handler for when an availability option is selected or deselected
+  const handleAvailabilitySelect = (selectedDays) => {
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      availability: selectedDays
+    }));
   };
 
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
+  // Handler for when the course input changes
+  const handleCourseChange = (event) => {
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      course: event.target.value
+    }));
   };
 
-  const [filters, setFilters] = useState({});
-
-  const handleFilterChange = (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
-    setFilters({
-      rating: selectedRating,
-      availability: selectedAvailability,
-      course: inputValue
-    });
-  };
+ // Handler for when the filter form is submitted
+ const handleFilterSubmit = (event) => {
+  event.preventDefault();
+  // Set the filterUpdated state to trigger the filter update in Tutors component
+  setFilterUpdated(!filterUpdated);
+};
 
   return (
     <div className="search-container">
       <div className="filter-container">
-        <h2 className="filter-header">Filter Options:</h2>
-        <form className="filters" onSubmit={handleFilterChange}>
-          <div className="filter-group rating-filter">
-            <h3>Rating</h3>
-            <DropdownMenu options={ratingOptions} handleSelect={handleRatingSelect} />
+        <h2>Filter Tutors</h2>
+        <form onSubmit={handleFilterSubmit}>
+          <div>
+            <h3>Rating:</h3>
+            <FilterDropdownMenu options={ratingOptions} handleSelect={handleRatingSelect} />
           </div>
-          <div className="filter-group availability-filter">
-            <h3>Availability</h3>
-            <DropdownMenu options={availabilityOptions} handleSelect={handleAvailabilitySelect} />
+          <div>
+            <h3>Availability:</h3>
+            <FilterDropdownMenu options={availabilityOptions} handleSelect={handleAvailabilitySelect} />
           </div>
-          <div className="filter-group courses-filter">
-            <h3>Courses</h3>
-            <input
-              type="text"
-              className="search-input"
-              value={inputValue}
-              onChange={handleInputChange}
-              placeholder="Enter Course..."
-            />
+          <div>
+            <h3>Course:</h3>
+            <input type="text" value={filters.course} onChange={handleCourseChange} placeholder="Enter course name" />
           </div>
-          <button className="button" type="submit">
-            Filter
-          </button>
+          {/**<button type="submit">Filters</button>*/}
         </form>
       </div>
-      <div className="space"></div>
-      <Tutors filters={filters} />
+      <Tutors filters={filters} filterUpdated={filterUpdated} />
     </div>
   );
 }
-
-// ... (unchanged code)
-
 
 export default SearchPage;

@@ -10,6 +10,41 @@
     z-index: 2;
   }
 
+  .filter-container form{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width:100%;
+  }
+  .filter-container button{
+    display: inline-block;
+    padding: 10px 20px;
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid #103d69;
+    border-radius: 5px;
+    color: white;
+    background-color: #103d69;
+    transition: background-color 0.3s, color 0.3s;
+    margin-top: 20px; /* Increase the margin-top value */
+    margin-bottom: 10px;
+  }
+
+  .filter-container input{
+    border-radius: 5px;
+    height: 25px;
+  }
+
+
+  .filter-container button:hover{
+    background: darkblue;
+  }
+
   .space{
     padding: 40px;
   }
@@ -137,6 +172,8 @@
     margin-top: 20px; /* Increase the margin-top value */
     margin-bottom: 10px;
 }
+
+
 
 .search-input {
   margin-left: 10px;

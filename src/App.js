@@ -5,7 +5,7 @@ import Navbar from './components/navbar.js';
 import LoginPage from './components/LoginPage.js';
 import SignupTutor from './components/Signup-TutorPage.js';
 import SignupStudent from './components/Signup-StudentPage.js';
-import Reviews from './components/Reviews.js';
+import ViewTutorProfilePage from './components/ViewTutorProfilePage.js';
 import ConversationPage from './components/ConversationPage.js';
 import ProfilePage from './components/ProfilePage.js';
 import HomePage from './components/HomePage.js';
@@ -23,8 +23,8 @@ function App() {
             <Route exact path="/" Component={LoginPage} />
             <Route path="/signup-tutor" Component={SignupTutor} />
             <Route path="/signup-student" Component={SignupStudent} />
-            <Route path="/reviews" Component={Reviews} />
-            <Route path="/profile-view" Component={Reviews} />
+            <Route path="/tutor-profile" Component={ViewTutorProfilePage} />
+            <Route path="/profile-view" Component={ViewTutorProfilePage} />
             <Route path="/home" Component={HomePage} />
             <Route path="/messages" Component={ConversationPage} />
             <Route path="/profile" Component={ProfilePage} />
