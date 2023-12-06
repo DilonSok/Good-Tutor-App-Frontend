@@ -164,7 +164,6 @@ function Reviews() {
     catch(error) {
       console.error('Error uploading review:', error);
     }
-    window.alert("Review successfully uploaded.")
   };
   
 
