@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { validatePassword } from '../scripts/validatePassword';
 import '../css/EditAccount.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 
 
 
@@ -121,6 +121,44 @@ function EditAccount() {
         validateField(e.target.name, e.target.value);
     };
 
+    const [isDeleteConfirmationVisible, setDeleteConfirmationVisible] = useState(false);
+
+    const showDeleteConfirmation = () => {
+      setDeleteConfirmationVisible(true);
+    };
+  
+    const hideDeleteConfirmation = () => {
+      setDeleteConfirmationVisible(false);
+    };
+
+    const handleLogout = () => {
+        localStorage.setItem('isLoggedIn', 'false'); 
+        localStorage.removeItem('user'); 
+        localStorage.removeItem('tutorProfile'); 
+        localStorage.removeItem('currentUsername'); 
+        localStorage.removeItem('userID'); 
+        localStorage.removeItem('authToken'); 
+        window.dispatchEvent(new Event('loginStateChange')); //ping state change for login (logged out)
+        navigate('/');
+      };
+  
+    const handleDelete = async () => {
+      try {
+        const response = await Axios.delete(`http://localhost:3500/users`, { data: { id: _userID } });
+  
+        if (response.status === 200) {
+          // Perform any additional cleanup or redirection
+            console.log(`Account for ${_username} deleted successfully`);
+            handleLogout()
+        } else {
+          alert('Error deleting account');
+        }
+      } catch (error) {
+        console.error('Error deleting account:', error);
+      } finally {
+        hideDeleteConfirmation();
+      }
+    };
     return (
         <div className='edit-account-container'>
             <div className='edit-header'>
@@ -182,7 +220,19 @@ function EditAccount() {
                 )}
                 <button className="submit-container" type="submit">Save Changes</button>
             </form>
+      {/* ... (existing code) */}
+      <button className="delete-account-button" onClick={showDeleteConfirmation}>Delete Account</button>
+
+      {/* Delete Confirmation Dialog */}
+      {isDeleteConfirmationVisible && (
+        <div className="delete-confirmation">
+          <p>Are you sure you want to delete your account?</p>
+          <button onClick={handleDelete}>Yes, Delete</button>
+          <button onClick={hideDeleteConfirmation}>Cancel</button>
         </div>
+      )}
+    </div>
+
     );
 }
 

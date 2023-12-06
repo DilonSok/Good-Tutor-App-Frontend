@@ -114,3 +114,47 @@
         margin-top: 5px;
     }
 }
+
+/* EditAccount.css */
+
+.delete-account-button {
+    margin-top: 10px;
+    background-color: #f16d6d;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .delete-account-button:hover {
+    background-color: #e74a4a;
+  }
+  
+  .delete-confirmation {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .delete-confirmation p {
+    margin-bottom: 10px;
+  }
+  
+  .delete-confirmation button {
+    margin-right: 10px;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  .delete-confirmation button:last-child {
+    margin-right: 0;
+  }
+  
