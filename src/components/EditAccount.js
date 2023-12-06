@@ -149,6 +149,7 @@ function EditAccount() {
         if (response.status === 200) {
           // Perform any additional cleanup or redirection
             console.log(`Account for ${_username} deleted successfully`);
+            alert('Account deleted sucessfully!');
             handleLogout()
         } else {
           alert('Error deleting account');
