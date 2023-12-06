@@ -89,14 +89,14 @@ body {
   background-color: #103d69;
   color: #ecf0f1;
   text-align: center;
-  padding: 60px;
+  padding: 20px;
   position: absolute;
   bottom: 0;
   width: 100%;
 }
 
 .footer p {
-  margin: 20px 0 0;
+  margin: 25px 0 0;
   font-size: 14px;
 }
 
