@@ -3,12 +3,15 @@ import { useLocation } from 'react-router-dom';
 import '../css/Reviews.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Popup from './Popup';
+import { useNavigate } from 'react-router-dom'; // Add this line to import useNavigate
+
 import { faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 //import { Axios } from 'axios';
 
 const axios = require('axios');
 
 function Reviews() {
+  const navigate = useNavigate(); // Initialize useNavigate hook
   const [tutorProfile, setTutorProfile] = useState({
     username: '',
     description: '',
@@ -27,6 +30,24 @@ function Reviews() {
   const location = useLocation();
   const { state } = location;
   const { user, id } = state;
+
+  const handleMessage = () =>{
+    const loggedInUserId = localStorage.getItem('userID'); // Retrieve logged-in user's ID
+    const tutorId = id; // Replace with actual prop for tutor's ID
+
+    axios.post('http://localhost:3500/messages/start', {
+      senderId: loggedInUserId,
+      recipientId: tutorId,
+      recipientUserName: tutorProfile.username // Correctly pass the recipient's username
+    })
+      .then(response => {
+        navigate('/messages');
+      })
+      .catch(error => {
+        console.error('Error starting conversation:', error);
+      });
+
+  };
 
   useEffect(() => {
     const storedProfile = localStorage.getItem('tutorProfile');
@@ -173,6 +194,7 @@ function Reviews() {
       <div className="line1"></div>
       <div className="tutor-info-title">
         <p> About </p>
+        <button className='msg-tutor' onClick={handleMessage}>Message</button>
       </div>
       <div className='line2'></div>
       <div className="profile-info">
