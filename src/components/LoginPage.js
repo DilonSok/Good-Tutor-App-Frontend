@@ -25,6 +25,8 @@ function LoginPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setError('');
+
         try {
             const loginResponse = await Axios.post('http://localhost:3500/users/login', { username, password });
             localStorage.setItem('currentUsername', username);
@@ -38,6 +40,7 @@ function LoginPage() {
         } catch (err) {
             if (err.response && err.response.status === 401) {
                 setError('Invalid username or password');
+                console.log(error);
             } else {
                 setError('An error occurred during login. Please try again later.');
             }
@@ -75,7 +78,7 @@ function LoginPage() {
                         <li>
                             <button>Log in</button>
                         </li>
-                        {error && <li className="error-message">{error}</li>}
+                        {error && <li className="error-msg">{error}</li>}
                     </form>
                     <li>
                         <p>Don't have an account yet?</p>

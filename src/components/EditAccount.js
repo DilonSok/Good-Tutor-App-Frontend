@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { validatePassword } from '../scripts/validatePassword';
 import '../css/EditAccount.css';
+import { useNavigate } from 'react-router-dom';
+
 
 
 function EditAccount() {
@@ -20,6 +22,7 @@ function EditAccount() {
     const _username = storedUser ? storedUser.username : null;
     const _userID = storedUser ? storedUser._id : null;
     const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (_username) {
@@ -78,6 +81,8 @@ function EditAccount() {
             localStorage.setItem('userID', response.data.user._id);
             localStorage.setItem('currentUsername', response.data.user.username);
 
+            alert('Account updated successfully!');
+            navigate('/home')
             // Optionally, redirect user or show success message
         } catch (error) {
             console.error('Error updating user:', error);
