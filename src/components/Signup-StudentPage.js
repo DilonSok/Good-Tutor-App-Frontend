@@ -80,22 +80,20 @@ function SignupStudent() {
             console.error('Error submitting form:', error);
         }
     };
+    
     return (
         <div className='Signup'>
             <div className='container'>
                 <div className="header">
                     <div className="text">Sign Up As Student</div>
-                    {/*add css to make this look pretty*/}
                     {passwordError && <p className='error-message'>{passwordError}</p>}
                 </div>
-                <form className="inputs" onSubmit={handleSubmit}> {/*All inputs here will be saved to be used by Submit button for creating account */}
-                    <div className="input">
+                <form className="inputs" onSubmit={handleSubmit}>
+                    <div className="input-group">
                         <input type="text" placeholder="Username" name="username" value={username} onChange={handleInputChange} />
-                    </div>
-                    <div className="input">
                         <input type="email" placeholder="Enter Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                     </div>
-                    <div className="input">
+                    <div className="input-group">
                         <input
                             type="password"
                             placeholder="Enter Password"
@@ -103,20 +101,15 @@ function SignupStudent() {
                             onChange={(e) => setPassword(e.target.value)}
                             onBlur={handlePasswordBlur}
                         />
-                    </div>
-                    <div className="input">
                         <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                     </div>
-                    <div className="input">
-                        <input type="Student First Name" placeholder="Enter Student First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                    <div className="input-group">
+                        <input type="text" placeholder="Enter Student First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                        <input type="text" placeholder="Enter Student Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
                     </div>
-                    <div className="input">
-                        <input type="Student Last Name" placeholder="Enter Student Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-                    </div>
-                    {/*submit button will eventually connect with backend script and use previous inputs to create an account */}
                     <button className="submit-container" type='submit'>Sign Up</button>
                 </form>
-                {/*routing to different sign up or back to logging in*/}
+                <br></br>
                 <div>Already have an account or want to sign up as a tutor?</div>
                 <p className='signup-links'>
                     <Link to="/">Log in</Link>

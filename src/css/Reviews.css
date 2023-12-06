@@ -4,6 +4,11 @@
   margin-left: 10px;
   font-size: 20px;
   font-weight: bold;
+  color: navy;
+}
+
+h1{
+  color: navy;
 }
 
 .profile-info {
@@ -42,6 +47,7 @@
   margin-left: 10px;
   font-size: 20px;
   font-weight: bold;
+  color: navy;
 }
 
 

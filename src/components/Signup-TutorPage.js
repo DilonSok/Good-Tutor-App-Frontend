@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { validatePassword } from '../scripts/validatePassword';
-import '../css/signup.css'; // Ensure the path to your CSS file is correct
+import '../css/tutorSignup.css';
 
 function SignupTutor() {
     const [username, setUsername] = useState('');
@@ -117,47 +117,42 @@ function SignupTutor() {
                     {passwordError && <p className='error-message'>{passwordError}</p>}
                 </div>
                 <form className="inputs" onSubmit={handleSubmit}>
-                    <div className="input">
+                    <div className="input-group">
                         <input type="text" placeholder="Username" name="username" value={username} onChange={handleInputChange} />
-                    </div>
-                    <div className="input">
                         <input type="email" placeholder="Enter Email" name="email" value={email} onChange={handleInputChange} />
                     </div>
-                    <div className="input">
+                    <div className="input-group">
                         <input type="password" placeholder="Enter Password" name="password" value={password} onChange={handleInputChange} onBlur={handlePasswordBlur} />
-                    </div>
-                    <div className="input">
                         <input type="password" placeholder="Confirm Password" name="confirmPassword" value={confirmPassword} onChange={handleInputChange} />
                     </div>
-                    <div className="input">
+                    <div className="input-group">
                         <input type="text" placeholder="First Name" name="firstName" value={firstName} onChange={handleInputChange} />
-                    </div>
-                    <div className="input">
                         <input type="text" placeholder="Last Name" name="lastName" value={lastName} onChange={handleInputChange} />
                     </div>
-                    <div className="input">
+                    <div className="input-group">
                         <input type="text" placeholder="Classes (comma-separated)" name="classes" value={classes} onChange={handleInputChange} />
-                    </div>
-                    <div className="input">
                         <input type="text" placeholder="Description" name="description" value={description} onChange={handleInputChange} />
                     </div>
                     <div className="availability">
-                        <p>Select Available Days:</p>
-                        {Object.keys(availability).map(day => (
-                            <div key={day}>
-                                <input 
-                                    type="checkbox" 
-                                    id={day} 
-                                    name={day} 
-                                    checked={availability[day]} 
-                                    onChange={handleAvailabilityChange} 
-                                />
-                                <label htmlFor={day}>{day}</label>
-                            </div>
-                        ))}
-                    </div>
+                    <p>Select Available Days:</p>
+                    <div className="days-grid">
+                        {Object.keys(availability).map((day, index) => (
+                        <label key={day} htmlFor={day}>
+                            <input
+                            type="checkbox"
+                            id={day}
+                            name={day}
+                            checked={availability[day]}
+                            onChange={handleAvailabilityChange}
+                            />
+                            {day}
+                        </label>
+                    ))}
+                     </div>
+                </div>
                     <button className="submit-container" type='submit'>Sign Up</button>
                 </form>
+                <br></br>
                 <div>Already have an account or want to sign up as a student?</div>
                 <p className='signup-links'>
                     <Link to="/">Log in</Link>
@@ -170,3 +165,5 @@ function SignupTutor() {
 }
 
 export default SignupTutor;
+
+

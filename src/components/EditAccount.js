@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import updateUser from './updateUser'; // Import the updateUser function
-import '../css/EditAccount.css';
+import '../css/signup.css';
 
 function EditAccount({ userId }) {
     const [userData, setUserData] = useState({
@@ -46,27 +46,29 @@ function EditAccount({ userId }) {
     };
 
     return (
-        <div className='edit-account-container'>
-            <div className='edit-header'>
-                <h1>Edit Account</h1>
+        <div className='Signup'>
+            <div className='container'>
+                <div className='header'>
+                    <h1>Edit Account</h1>
+                </div>
+                <form onSubmit={handleSubmit} className='inputs'>
+                    {/* Input fields for editing user data */}
+                    <div className='input-group'>
+                        <h2>Change Username</h2>
+                        <input type="text" name="username" value={userData.username} onChange={handleInputChange} />
+                    </div>
+                    <div className='input-group'>
+                        <h2>Change Email</h2>
+                        <input type="email" name="email" value={userData.email} onChange={handleInputChange} />
+                    </div>
+                    <div className='input-group'>
+                        <h2>Change Password</h2>
+                        <input type="password" name="password" value={userData.password} onChange={handleInputChange} />
+                    </div>
+                    {/* Other input fields */}
+                    <button className='submit-container' type="submit">Save Changes</button>
+                </form>
             </div>
-            <form onSubmit={handleSubmit} className='edit-account-form'>
-                {/* Input fields for editing user data */}
-                <div>
-                    <h2>Change Username</h2>
-                    <input type="text" name="username" value={userData.username} onChange={handleInputChange} />
-                </div>
-                <div>
-                    <h2>Change Email</h2>
-                <input type="email" name="email" value={userData.email} onChange={handleInputChange} />
-                </div>
-                <div>
-                    <h2>Change Password</h2>
-                <input type="password" name="password" value={userData.password} onChange={handleInputChange} />
-                </div>
-                {/* Other input fields */}
-                <button type="submit">Save Changes</button>
-            </form>
         </div>
     );
 }

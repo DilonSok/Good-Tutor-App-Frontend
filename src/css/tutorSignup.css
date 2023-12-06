@@ -99,3 +99,47 @@
 .signup-links a:hover {
     color: #0056b3;
 }
+
+.availability {
+    margin-top: 20px;
+}
+
+.availability p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.availability .days-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+}
+
+.availability .days-grid .row {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 8px;
+}
+
+.availability .days-grid .row input {
+    display: none; /* hide the actual checkboxes */
+}
+
+.availability label {
+    font-size: 14px;
+    color: #333;
+    flex: 1;
+    height: 40px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.availability input:checked + label {
+    background-color: rgba(60, 60, 136, 0.699);
+    color: white;
+}
