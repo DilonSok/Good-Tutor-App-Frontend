@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import '../css/Reviews.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Popup from './Popup';
+import { faWindowRestore } from '@fortawesome/free-solid-svg-icons';
 //import { Axios } from 'axios';
 
 const axios = require('axios');
@@ -142,6 +143,7 @@ function Reviews() {
     catch(error) {
       console.error('Error uploading review:', error);
     }
+    window.alert("Review successfully uploaded.")
   };
   
 
