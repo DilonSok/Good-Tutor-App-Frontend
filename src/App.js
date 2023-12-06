@@ -31,6 +31,7 @@ function App() {
             <Route path="/search" Component={SearchPage} />
             <Route path="/settings" Component={EditAccount} />
           </Routes>
+        
         </div>
     </Router>
   );

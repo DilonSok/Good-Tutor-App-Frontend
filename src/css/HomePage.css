@@ -1,12 +1,116 @@
 .title {
-  font-size: 45px;
-  color: rgb(22, 68, 129);
+  background-color: #103d69;
+  color: #fff;
+  padding: 20px;
   text-align: center;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 20px;
+  
 }
 
-.slogan-title {
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh; /* Set the body to full viewport height */
+}
+
+.home-page-container {
+  min-height: 100vh; /* Set the container to at least full viewport height */
+  position: relative;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo-container {
+  text-align: center; /* Center text within the logo container */
+}
+.logo-container img {
+
+  justify-content: center;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  animation: slideIn 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slogan {
   margin-top: 20px;
-  font-size: 30px;
-  color: rgb(22, 68, 129);
   text-align: center;
+  color: #333;
+  opacity: 0;
+  animation: fadeIn 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards 0.5s;
+  font-size: 1.3em;
+}
+
+.cta-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color:#103d69;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color:navy;
+}
+
+.footer {
+  background-color: #103d69;
+  color: #ecf0f1;
+  text-align: center;
+  padding: 150px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer p {
+  margin: 20px 0 0;
+  font-size: 14px;
+}
+
+.social-icons {
+  margin-top: 20px;
+}
+
+.social-icons a {
+  display: inline-block;
+  margin-right: 15px;
+  color: #ecf0f1;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #3498db; /* Change color on hover */
 }

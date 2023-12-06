@@ -41,6 +41,8 @@ class TutorCard extends Component {
   };
 
   render() {
+    const averageRating = this.props.rating.reduce((sum, value) => sum + value, 0) / this.props.rating.length;
+
     return (
       <div className="container">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
@@ -53,7 +55,7 @@ class TutorCard extends Component {
                 <h3>Classes: {this.props.classes.join(', ')}</h3>
                 <h3>Availability:</h3>
                 <h3>{this.props.availability.join(', ')}</h3>
-                <h3>Rating: {this.props.rating}/5 Stars</h3>
+                <h3>Rating: {averageRating}/5 Stars</h3>
                 <p>{this.props.description}</p>
                 <button className='button' onClick={this.handleViewProfile}>View profile</button>
                 <button className='button' onClick={this.handleMessage}>Message</button>
