@@ -1,32 +1,116 @@
+/* EditAccount.css */
+.edit-account-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
 
-.edit-header{
+.edit-header {
     text-align: center;
+    margin-bottom: 30px;
 }
 
-.edit-account-container{
+.edit-account-form {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    width: 100%;
+    gap: 15px;
 }
 
-.edit-account-form{
+.input-group {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    width: 100%;
+    position: relative;
 }
 
-form > div {
+.input-group input,
+.input-group textarea,
+.input-group .checkbox-group input {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width:100%;
+
+}
+
+.input-group label {
+    font-weight: bold;
+}
+
+.error-message {
+    color: red;
+    position: absolute;
+    top: -15px;
+    right: 50px;
+    white-space: nowrap;
+}
+
+.submit-container {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.submit-container:hover {
+    background-color: #0056b3;
+}
+
+.availability-group {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    width: 100%;
+    margin-bottom: 15px;
 }
 
-button{
-    margin-top: 16px;
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns grid */
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.day-checkbox {
+    display: flex;
+    align-items: center; /* Align the checkbox and the label */
+    justify-self: center;
+}
+
+/* Style for checkbox */
+.day-checkbox input[type="checkbox"] {
+    margin-right: 5px; /* Space between the checkbox and the label */
+    width:20px;
+    
+}
+
+/* Label style */
+.day-checkbox label {
+    margin: 0; /* Remove default margin from label if any */
+    font-weight: normal; /* Match the font weight from the screenshot */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .days-grid {
+        grid-template-columns: repeat(2, 1fr); /* Adjust for smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .edit-account-container {
+        width: 90%;
+        padding: 10px;
+    }
+
+    .input-group .error-message {
+        position: static;
+        margin-top: 5px;
+    }
 }
