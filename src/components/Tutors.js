@@ -15,12 +15,12 @@ class Tutors extends Component {
     Axios.get("http://localhost:3500/users")
       .then((response) => {
         // Filter out non-tutors and current user's data
-        const tutors = response.data.filter(user => 
+        const tutors = response.data.filter(user =>
           user.role === 1 && user._id !== JSON.parse(localStorage.getItem('user'))._id
         );
         this.setState({
           listofTutors: tutors,
-          filteredTutors: tutors // Initialize with all tutor data
+          filteredTutors: tutors, // Initialize with all tutor data
         });
       })
       .catch((error) => {
@@ -35,9 +35,13 @@ class Tutors extends Component {
   }
 
   applyFilters() {
+
     const { rating, availability, course } = this.props.filters;
     let filtered = this.state.listofTutors.filter(tutor => {
-      const matchesRating = !rating.length || rating.includes(String(tutor.rating));
+
+      const averageRating = tutor.rating.reduce((acc, curr) => acc + curr, 0) / tutor.rating.length;
+      const flooredRating = Math.floor(averageRating);
+      const matchesRating = !rating.length || rating.includes(String(flooredRating));
       const matchesAvailability = !availability.length || availability.some(day => tutor.availability && tutor.availability.includes(day));
       const matchesCourse = !course || (tutor.classes && tutor.classes.includes(course));
 
