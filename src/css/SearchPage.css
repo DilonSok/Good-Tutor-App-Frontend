@@ -114,10 +114,10 @@
     text-align: center;
     text-decoration: none;
     cursor: pointer;
-    border: 2px solid darkblue;
+    border: 2px solid #103d69;
     border-radius: 5px;
     color: white;
-    background-color: darkblue;
+    background-color: #103d69;
     transition: background-color 0.3s, color 0.3s;
     margin-top: 20px; /* Increase the margin-top value */
     margin-bottom: 10px;

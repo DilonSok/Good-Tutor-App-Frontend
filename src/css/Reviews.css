@@ -49,12 +49,16 @@
   margin-left: auto;
   margin-right: 10px;
   margin-top: 10px;
-  background-color: #007bff;
+  background-color: darkblue;
   color: #f4f4f4;
   border: none;
   cursor: pointer;
   height: 40px;
   border-radius: 4px;
+}
+
+.popUpButton:hover{
+  background-color: #103d69;
 }
 
 .fa-solid {
@@ -119,10 +123,14 @@
   margin-left: auto;
   margin-right: 10px;
   margin-top: 10px;
-  background-color: #007bff;
+  background-color: darkblue;
   color: #f4f4f4;
   border: none;
   cursor: pointer;
   height: 40px;
   border-radius: 4px;
+}
+
+.msg-tutor.msg-tutor:hover{
+  background-color:#103d69
 }
