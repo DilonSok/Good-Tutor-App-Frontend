@@ -220,7 +220,8 @@ function EditAccount() {
                 )}
                 <button className="submit-container" type="submit">Save Changes</button>
             </form>
-      {/* ... (existing code) */}
+           <br></br> 
+    <div className='edit-account-container'>
       <button className="delete-account-button" onClick={showDeleteConfirmation}>Delete Account</button>
 
       {/* Delete Confirmation Dialog */}
@@ -231,6 +232,8 @@ function EditAccount() {
           <button onClick={hideDeleteConfirmation}>Cancel</button>
         </div>
       )}
+    </div>
+
     </div>
 
     );
