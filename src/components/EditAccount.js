@@ -224,7 +224,6 @@ function EditAccount() {
     <div className='edit-account-container'>
       <button className="delete-account-button" onClick={showDeleteConfirmation}>Delete Account</button>
 
-      {/* Delete Confirmation Dialog */}
       {isDeleteConfirmationVisible && (
         <div className="delete-confirmation">
           <p>Are you sure you want to delete your account?</p>
