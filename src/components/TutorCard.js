@@ -51,6 +51,8 @@ class TutorCard extends Component {
               <div className="profileinfo">
                 <h1>{this.props.username}</h1>
                 <h3>Classes: {this.props.classes.join(', ')}</h3>
+                <h3>Availability:</h3>
+                <h3>{this.props.availability.join(', ')}</h3>
                 <h3>Rating: {this.props.rating}/5 Stars</h3>
                 <p>{this.props.description}</p>
                 <button className='button' onClick={this.handleViewProfile}>View profile</button>

@@ -38,7 +38,7 @@ class Tutors extends Component {
           const matchesCourse = !course || (tutor.classes && tutor.classes.includes(course));
           const roleCheck = localStorage.getItem("user").role == 1;
       
-          return matchesRating && matchesAvailability && matchesCourse && roleCheck;
+          return matchesRating && matchesAvailability && matchesCourse && roleCheck; //add username doesn't match current user
         });
         this.setState({ filteredTutors: filtered });
       }
@@ -58,6 +58,7 @@ class Tutors extends Component {
                       username={tutor.username}
                       rating={tutor.rating}
                       description={tutor.description} 
+                      availability={tutor.availability} 
                     />                 
                     ))}
             </div>

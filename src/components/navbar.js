@@ -19,7 +19,12 @@ function Navbar() {
 
   //Function to logout user
   const handleLogout = () => {
-    localStorage.setItem('isLoggedIn', 'false'); //set this to false on the way out so state knows youre logged out
+    localStorage.setItem('isLoggedIn', 'false'); 
+    localStorage.removeItem('user'); 
+    localStorage.removeItem('tutorProfile'); 
+    localStorage.removeItem('currentUsername'); 
+    localStorage.removeItem('userID'); 
+    localStorage.removeItem('authToken'); 
     window.dispatchEvent(new Event('loginStateChange')); //ping state change for login (logged out)
     navigate('/');
   };

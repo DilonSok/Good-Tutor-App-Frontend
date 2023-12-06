@@ -14,14 +14,18 @@ function ConversationPage() {
     
     useEffect(() => {
         Axios.get(`http://localhost:3500/messages/${userID}/conversations`)
-            .then(response => {
-                console.log(response);
-                setConversations(response.data.data);
-            })
-            .catch(error => {
-                console.error('Error fetching conversations:', error);
-            });
-    }, [userID]);
+          .then(async (response) => {
+            const convs = response.data.data;
+            for (let conv of convs) {
+              conv.conversationTitle = await fetchOtherParticipantUsername(conv);
+            }
+            setConversations(convs);
+          })
+          .catch(error => {
+            console.error('Error fetching conversations:', error);
+          });
+      }, [userID]);
+      
 
     const sendMessage = () => {
         if (currentMessage.trim() !== "" && currentConversation) {
@@ -48,14 +52,17 @@ function ConversationPage() {
         }
     };
 
-    const loadMessages = (conversationID) => {
+    const loadMessages = async (conversationID) => {
         const conversation = conversations.find(conv => conv._id === conversationID);
         if (conversation) {
-            console.log(conversation.conversationTitle)
-            setCurrentConversation(conversation);
-            setMessages(conversation.messages);
+          if (!conversation.conversationTitle) {
+            conversation.conversationTitle = await fetchOtherParticipantUsername(conversation);
+          }
+          setCurrentConversation(conversation);
+          setMessages(conversation.messages);
         }
-    };
+      };
+      
 
 
     const handleInputChange = (e) => {
@@ -67,6 +74,18 @@ function ConversationPage() {
             sendMessage();
         }
     };
+
+    const fetchOtherParticipantUsername = async (conversation) => {
+        const otherUserId = conversation.participants.find(id => id !== userID); // Assuming conversation.participants is an array of participant IDs
+        try {
+          const response = await Axios.get(`http://localhost:3500/conversations/username/${otherUserId}`);
+          return response.data.username;
+        } catch (error) {
+          console.error('Error fetching username:', error);
+          return 'Unknown'; // Fallback username
+        }
+      };
+      
 
     return (
         <div className="conversations-page">
