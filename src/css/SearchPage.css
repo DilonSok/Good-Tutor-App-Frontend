@@ -14,13 +14,14 @@
   }
   
 .filter-container {
-    display: flex;
-    align-items: center;
-    border-radius: 0%;
-    border: 3px solid black;
-    width: 80%;
-    z-index: 2;
-    
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  border: 2px solid #103d69;
+  width: 80%;
+  background-color: #f5f5f5;
+  padding: 15px;
+  z-index: 2;
   }
 
 .filters {
@@ -35,8 +36,9 @@
 }
 
 .filter-header {
-    margin-right: 70px;
-    color: darkblue
+  margin-right: 20px;
+  color: #103d69;
+  font-size: 20px;
 }
 
 .rating-filter {
@@ -63,24 +65,36 @@
 
 
 .dropdown-options {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 10px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Creates three equal columns */
-    gap: 10px; /* Adjust the gap between columns */
-    align-items: center;
-    border: 2px solid darkblue;
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 2px solid darkblue;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added box-shadow for a subtle lift effect */
+
 }
+
+.dropdown-options div {
+  cursor: pointer;
+  transition: background-color 0.3s; /* Add a smooth transition for the background color change */
+}
+
+.dropdown-options div:hover {
+  background-color: #cce5ff; /* Change to the desired glowing color on hover */
+}
+
 
 
 .dropdown-options.show {
-  display: block;
+  display: grid; /* Changed to grid to match the initial display property */
 }
+
 
 .dropdown-header{
     cursor: pointer;
@@ -135,8 +149,8 @@
   }
 
   .search-input:focus {
-    border-color: #4CAF50;
-    box-shadow: 0 0 8px rgba(0, 128, 0, 0.3);
+    border-color: darkblue;
+    box-shadow: 0 0 8px darkblue
   }
 
   .search-icon {
@@ -149,7 +163,7 @@
   
   /* Optional: Add styles for hover state */
   .search-icon:hover {
-    color: #4CAF50;
+    color: darkblue;
   }
   
   

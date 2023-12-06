@@ -41,7 +41,9 @@ class TutorCard extends Component {
   };
 
   render() {
-    const averageRating = this.props.rating.reduce((sum, value) => sum + value, 0) / this.props.rating.length;
+    const averageRating = Math.floor(
+      this.props.rating.reduce((sum, value) => sum + value, 0) / this.props.rating.length
+    );
 
     return (
       <div className="container">

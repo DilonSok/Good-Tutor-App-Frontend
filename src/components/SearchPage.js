@@ -4,6 +4,10 @@ import TutorForm from './TutorForm';
 import '../css/SearchPage.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+// ... (unchanged code)
+
+// ... (unchanged code)
+
 const DropdownMenu = ({ options, handleSelect }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -26,8 +30,16 @@ const DropdownMenu = ({ options, handleSelect }) => {
     setShowOptions(!showOptions);
   };
 
+  const handleItemClick = (value) => {
+    handleToggle(value);
+  };
+
+  const handleBlur = () => {
+    setShowOptions(false);
+  };
+
   return (
-    <div className="dropdown">
+    <div className="dropdown" onBlur={handleBlur}>
       <div className="dropdown-header" onClick={handleDropdownClick}>
         <i className="fas fa-bars" style={{ color: showOptions ? 'blue' : 'black' }}></i>
       </div>
@@ -36,7 +48,7 @@ const DropdownMenu = ({ options, handleSelect }) => {
           {options.map((option, index) => (
             <div
               key={index}
-              onClick={() => handleToggle(option.value)}
+              onClick={() => handleItemClick(option.value)}
               className={selectedOptions.includes(option.value) ? 'selected' : ''}
             >
               {option.label}
@@ -48,6 +60,12 @@ const DropdownMenu = ({ options, handleSelect }) => {
     </div>
   );
 };
+
+// ... (unchanged code)
+
+
+// ... (unchanged code)
+
 
 function SearchPage() {
   const ratingOptions = [
@@ -98,35 +116,38 @@ function SearchPage() {
   return (
     <div className="search-container">
       <div className="filter-container">
-        <h2>Filter Options:</h2>
+        <h2 className="filter-header">Filter Options:</h2>
         <form className="filters" onSubmit={handleFilterChange}>
-            <div className="rating-filter">
-                <h3>Rating</h3>
-                <DropdownMenu options={ratingOptions} handleSelect={handleRatingSelect} />
-            </div>
-            <div className="availability-filter">
-                <h3>Availability</h3>
-                <DropdownMenu options={availabilityOptions} handleSelect={handleAvailabilitySelect} />
-            </div>
-            <div className="courses-filter">
-                <h3>Courses</h3>
-                <input
-                  type="text"
-                  class="search-input"
-                  value={inputValue}
-                  onChange={handleInputChange}
-                  placeholder="Enter Course..."
-                />
-            </div>
-            <button className="button" type='submit'>Filter</button>
+          <div className="filter-group rating-filter">
+            <h3>Rating</h3>
+            <DropdownMenu options={ratingOptions} handleSelect={handleRatingSelect} />
+          </div>
+          <div className="filter-group availability-filter">
+            <h3>Availability</h3>
+            <DropdownMenu options={availabilityOptions} handleSelect={handleAvailabilitySelect} />
+          </div>
+          <div className="filter-group courses-filter">
+            <h3>Courses</h3>
+            <input
+              type="text"
+              className="search-input"
+              value={inputValue}
+              onChange={handleInputChange}
+              placeholder="Enter Course..."
+            />
+          </div>
+          <button className="button" type="submit">
+            Filter
+          </button>
         </form>
       </div>
-      <div className='space'>
-
-      </div>
+      <div className="space"></div>
       <Tutors filters={filters} />
     </div>
   );
 }
+
+// ... (unchanged code)
+
 
 export default SearchPage;
