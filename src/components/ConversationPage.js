@@ -4,28 +4,33 @@ import '../css/ConversationPage.css';
 import '../css/message.css';
 
 function ConversationPage() {
-    const userID = localStorage.getItem('userID');
+    const currUser = JSON.parse(localStorage.getItem('user'));
+    const userID = currUser._id;
     const [conversations, setConversations] = useState([]);
     const [currentConversation, setCurrentConversation] = useState(null);
     const [messages, setMessages] = useState([]);
     const [currentMessage, setCurrentMessage] = useState("");
-    const user = JSON.parse(localStorage.getItem('user')) || {};
-    const username = user.username || 'default';
-    
+
     useEffect(() => {
         Axios.get(`http://localhost:3500/messages/${userID}/conversations`)
-          .then(async (response) => {
-            const convs = response.data.data;
-            for (let conv of convs) {
-              conv.conversationTitle = await fetchOtherParticipantUsername(conv);
-            }
-            setConversations(convs);
-          })
-          .catch(error => {
-            console.error('Error fetching conversations:', error);
-          });
-      }, [userID]);
-      
+            .then(async (response) => {
+                const convs = response.data.data;
+                console.log(convs);
+                for (let conv of convs) {
+                    const otherUserId = conv.participants.find(id => id !== userID);
+                    console.log("yours " + userID)
+                    console.log("theirs " + otherUserId)
+                    const usernameResponse = 
+                    await Axios.get(`http://localhost:3500/messages/username/${otherUserId}`);
+                    console.log(usernameResponse)
+                    conv.otherUsername = usernameResponse.data.username; // Add a new field to store the other user's username
+                }
+                setConversations(convs);
+            })
+            .catch(error => {
+                console.error('Error fetching conversations:', error);
+            });
+    }, [userID]);
 
     const sendMessage = () => {
         if (currentMessage.trim() !== "" && currentConversation) {
@@ -34,36 +39,29 @@ function ConversationPage() {
                 conversationId: currentConversation._id,
                 content: currentMessage
             })
-                .then(() => {
-                    // Re-fetch the conversation to get updated messages
-                    return Axios.get(`http://localhost:3500/messages/${userID}/conversations`);
-                })
-                .then(response => {
-                    // Update conversations and reset the current conversation
-                    setConversations(response.data.data);
-                    const updatedCurrentConversation = response.data.data.find(conv => conv._id === currentConversation._id);
-                    setCurrentConversation(updatedCurrentConversation);
-                    setMessages(updatedCurrentConversation ? updatedCurrentConversation.messages : []);
-                    setCurrentMessage("");
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+            .then(() => {
+                return Axios.get(`http://localhost:3500/messages/${userID}/conversations`);
+            })
+            .then(response => {
+                setConversations(response.data.data);
+                const updatedCurrentConversation = response.data.data.find(conv => conv._id === currentConversation._id);
+                setCurrentConversation(updatedCurrentConversation);
+                setMessages(updatedCurrentConversation ? updatedCurrentConversation.messages : []);
+                setCurrentMessage("");
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
     };
 
-    const loadMessages = async (conversationID) => {
+    const loadMessages = (conversationID) => {
         const conversation = conversations.find(conv => conv._id === conversationID);
         if (conversation) {
-          if (!conversation.conversationTitle) {
-            conversation.conversationTitle = await fetchOtherParticipantUsername(conversation);
-          }
-          setCurrentConversation(conversation);
-          setMessages(conversation.messages);
+            setCurrentConversation(conversation);
+            setMessages(conversation.messages);
         }
-      };
-      
-
+    };
 
     const handleInputChange = (e) => {
         setCurrentMessage(e.target.value);
@@ -75,46 +73,29 @@ function ConversationPage() {
         }
     };
 
-    const fetchOtherParticipantUsername = async (conversation) => {
-        const otherUserId = conversation.participants.find(id => id !== userID); // Assuming conversation.participants is an array of participant IDs
-        try {
-          const response = await Axios.get(`http://localhost:3500/conversations/username/${otherUserId}`);
-          return response.data.username;
-        } catch (error) {
-          console.error('Error fetching username:', error);
-          return 'Unknown'; // Fallback username
-        }
-      };
-      
-
     return (
         <div className="conversations-page">
             <div className="conversations-page-container">
                 <div className="conversations-container">
-                    <div className="conversations-title">
-                        Conversations
-                    </div>
+                    <div className="conversations-title">Conversations</div>
                     <div className="conversations-list-container">
-                    {conversations.map((conversation, index) => {
-                        // Define profilePic here so it has access to the current `conversation`
-                        let profilePic = `https://robohash.org/${conversation.conversationTitle}.png?set=set4`;
+                        {conversations.map((conversation, index) => {
+                            const otherUserId = conversation.participants.find(id => id !== userID);
+                            const profilePic = `https://robohash.org/${otherUserId}.png?set=set4`;
+                            const username = conversation.otherUsername;
 
-                        return (
-                            <div
-                                key={index}
-                                className="conversation"
-                                onClick={() => loadMessages(conversation._id)}
-                            >
-                                <img className='profile-picture' src={profilePic} alt={`${conversation.conversationTitle}`} />
-                                <div>{conversation.conversationTitle}</div>
-                            </div>
-                        );
-                    })}
-                </div>
+                            return (
+                                <div key={index} className="conversation" onClick={() => loadMessages(conversation._id)}>
+                                    <img className='profile-picture' src={profilePic} alt={`${username}`} />
+                                    <div>{username}</div>
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
                 <div className="view-conversation-container">
                     <div className="recipient-name">
-                        {currentConversation ? currentConversation.conversationTitle : "Select a Conversation"}
+                        {currentConversation ? currentConversation.otherUsername : "Select a Conversation"}
                     </div>
                     <div className="messages-container">
                         {messages.map((msg, index) => (
@@ -128,14 +109,7 @@ function ConversationPage() {
                         </div>
                         ))}
                     </div>
-                    <input
-                        type="text"
-                        placeholder="Your message"
-                        value={currentMessage}
-                        onChange={handleInputChange}
-                        onKeyPress={handleKeyPress}
-                        disabled={!currentConversation}
-                    />
+                    <input type="text" placeholder="Your message" value={currentMessage} onChange={handleInputChange} onKeyPress={handleKeyPress} disabled={!currentConversation} />
                 </div>
             </div>
         </div>
