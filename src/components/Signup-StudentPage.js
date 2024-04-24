@@ -44,6 +44,7 @@ function SignupStudent() {
     const handlePasswordBlur = () => {
         if (!validatePassword(password)) {
             setPasswordError('Password must be at least 8 characters long and contain at least one symbol.');
+            alert('Password must be at least 8 characters long and contain at least one symbol.')
         } else {
             setPasswordError('');
         }
