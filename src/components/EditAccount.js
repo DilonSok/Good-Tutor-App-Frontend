@@ -85,7 +85,11 @@ function EditAccount() {
             navigate('/home')
             // Optionally, redirect user or show success message
         } catch (error) {
-            console.error('Error updating user:', error);
+            if (error.response && error.response.status === 409) {
+                alert("New password cannot be current password.");
+            } else {
+                console.error('Error updating user:', error);
+            }
         }
     };
 
